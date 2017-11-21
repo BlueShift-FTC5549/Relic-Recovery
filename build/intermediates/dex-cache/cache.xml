@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="63096d280a6d0792ddbe5601216c3bc2bb685e8c">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_1e5d853dc69c60b415bf108a7ae90f0d8bcf0f65.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/5407b74d084ce25e40ee46ad8869b164f3799add/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="75bdc736b17d8f39d246beac357cb3a0e007fcfa">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_45f16e1306e43b88712c4e2577ce886ef663ceb8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a214d3b1b12e72f4fb0d5d5d8d0ec43c96de2b5">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_92d51948be8c667e4ba1af3223a07aa07e71dea5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/c7e0ab1d58b6f6c74345dd83d0b89b77f079ca96/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9dafed45e330aec14abcce05bdb7bbdb2a2d7092">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_24761c66abfff818cd6c1d6799d01760892c9fe7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c2abba0621a5319232804767218216568263aa37">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_d0ec5a10f2b40fd723afbbc180c17259b8ac2184.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/Vuforia.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="91b46366eb9f8203073ee2935087c097c888c0ed">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/Vuforia_5b8ed231ce8d114a50d53988e80b2ad98b7af63f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/b60ffdbaff566826cde8c4e2bc188335026e018b/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_0cd22d6a0144f82b3059b76a4e0f55d126e0f83b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/gson-2.8.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e118dd0900e4a18fb928ebb8df2d9fbda78f2b5d">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/gson-2.8.0_ddfc64a6137061982efb8a66594d9f60902fe54b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/2f1d5e96b5fb503684e369d49d09b99f83ad1bec/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="96cbbea552fe9bf3c56540c7e4912eb5cf72301e">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_e47cc3905796385fef37fe52cb56668ef7e0cc2e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/gson-extras-0.2.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b30c2655badcc7ce97f84e49f777b7dd154bad57">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/gson-extras-0.2.1_940b99c7a14ecb3ee6b27bed0cb86940ed21edd3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/ec8f709ee5a949c5459f5cee9e1c9fae16b5fa42/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9da82f9829b6cafb8407989729481220ca06c905">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_0a9aa67184c42d84089156a459e558a4d839eb4a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e259d01a014f392930432e85cc1ac9bf807a92df">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_1b5211d4c6b9dbe7ef8b2d001f8754fb872d9cac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/javac.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c576121aac49e547b39aedfb1daa29782db4166c">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/javac_2540094983f59f3614902a12a13214d8104a5398.jar" />
+    </item>
+
+</items>

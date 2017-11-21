@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable/icon_robotcontroller.png",
+        "source": "/Users/wongg19/.android/build-cache/ec8f709ee5a949c5459f5cee9e1c9fae16b5fa42/output/res/drawable/icon_robotcontroller.png"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable/icon_menu.png",
+        "source": "/Users/wongg19/.android/build-cache/ec8f709ee5a949c5459f5cee9e1c9fae16b5fa42/output/res/drawable/icon_menu.png"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable/button_shape.xml",
+        "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/drawable/button_shape.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable/feedback_shape_orange.xml",
+        "source": "/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/res/drawable/feedback_shape_orange.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable/black_border.xml",
+        "source": "/Users/wongg19/.android/build-cache/5407b74d084ce25e40ee46ad8869b164f3799add/output/res/drawable/black_border.xml"
+    }
+]

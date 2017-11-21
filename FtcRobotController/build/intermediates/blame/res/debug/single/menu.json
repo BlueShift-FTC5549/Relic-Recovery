@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/main_menu.xml",
+        "source": "/Users/wongg19/.android/build-cache/ec8f709ee5a949c5459f5cee9e1c9fae16b5fa42/output/res/menu/main_menu.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/ftc_robot_controller.xml",
+        "source": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/src/main/res/menu/ftc_robot_controller.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/menu/menu_server.xml",
+        "source": "/Users/wongg19/.android/build-cache/5407b74d084ce25e40ee46ad8869b164f3799add/output/res/menu/menu_server.xml"
+    }
+]
