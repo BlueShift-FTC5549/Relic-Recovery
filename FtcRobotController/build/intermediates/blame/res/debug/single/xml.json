@@ -4,8 +4,24 @@
         "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/xml/rev_scoot.xml"
     },
     {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/advanced_rc_settings.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/advanced_rc_settings.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/app_settings.xml",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/src/main/res/xml/app_settings.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/squarebot.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/squarebot.xml"
+    },
+    {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbotsens.xml",
         "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/xml/pushbotsens.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbotsens.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/pushbotsens.xml"
     },
     {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/device_filter.xml",
@@ -16,8 +32,20 @@
         "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/xml/advanced_rc_settings.xml"
     },
     {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/k9usbbot.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/k9usbbot.xml"
+    },
+    {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbot.xml",
         "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/xml/pushbot.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/pushbot.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/pushbot.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/k9legacybot.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/k9legacybot.xml"
     },
     {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/squarebot.xml",
@@ -28,8 +56,20 @@
         "source": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/src/main/res/xml/app_settings.xml"
     },
     {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/maxmodules.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/maxmodules.xml"
+    },
+    {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/k9usbbot.xml",
         "source": "/Users/wongg19/.android/build-cache/79dbd3f048c98436052db5dac2015238b86f3f13/output/res/xml/k9usbbot.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/rev_scoot.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/rev_scoot.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/debug/xml/device_filter.xml",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/src/main/res/xml/device_filter.xml"
     },
     {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/debug/xml/k9legacybot.xml",

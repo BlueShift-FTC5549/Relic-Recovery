@@ -10,5 +10,17 @@
     {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/res/merged/debug/menu/menu_server.xml",
         "source": "/Users/wongg19/.android/build-cache/5407b74d084ce25e40ee46ad8869b164f3799add/output/res/menu/menu_server.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/menu/ftc_robot_controller.xml",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/bundles/default/res/menu/ftc_robot_controller.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/menu/menu_server.xml",
+        "source": "/Users/wongg19/.android/build-cache/d14a4078f8d8118e545d35a137f2e1e66fa66bcd/output/res/menu/menu_server.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/menu/main_menu.xml",
+        "source": "/Users/wongg19/.android/build-cache/3e7ab8f7ee73be94852ef8e761193604a4ffef7b/output/res/menu/main_menu.xml"
     }
 ]
