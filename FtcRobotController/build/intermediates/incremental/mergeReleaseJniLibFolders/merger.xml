@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/src/main/jniLibs"/></dataSet><dataSet config="release"><source path="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/src/release/jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/src/main/jniLibs"/></dataSet><dataSet config="release"><source path="/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/src/release/jniLibs"/></dataSet></merger>

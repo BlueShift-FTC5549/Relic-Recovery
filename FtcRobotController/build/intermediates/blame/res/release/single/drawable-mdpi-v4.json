@@ -1,5 +1,9 @@
 [
     {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/drawable-mdpi-v4/ic_launcher.png",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/src/main/res/drawable-mdpi/ic_launcher.png"
+    },
+    {
         "merged": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/res/merged/release/drawable-mdpi-v4/ic_launcher.png",
         "source": "/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/src/main/res/drawable-mdpi/ic_launcher.png"
     }

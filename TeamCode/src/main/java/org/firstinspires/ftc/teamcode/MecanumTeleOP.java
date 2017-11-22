@@ -29,8 +29,7 @@ import org.firstinspires.ftc.teamcode.TeamCodeSupport.Point;
  * @version 1.1
  */
 
-@Disabled
-@TeleOp(name="Mecanum Drive", group="Iterative Opmode")
+@TeleOp(name="Mecanum Drive", group="Main OPMode")
 public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront;
@@ -79,6 +78,7 @@ public class MecanumTeleOP extends OpMode {
      * to the left joystick and the two top bumpers.
      */
     @Override public void loop() {
+        //TODO: actually test and research this mecanum control function
         double dAngle, dSpeed, dRotation;
         int leftBumperValue, rightBumperValue;
 
@@ -127,5 +127,10 @@ public class MecanumTeleOP extends OpMode {
         leftBack.setPower(0.0);
         rightFront.setPower(0.0);
         rightBack.setPower(0.0);
+    }
+
+    //Todo: figure out how to incorporate encoders for precise driving
+    public void driveToPos(Point destination) {
+
     }
 }

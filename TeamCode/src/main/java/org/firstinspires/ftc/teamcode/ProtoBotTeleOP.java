@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.util.Range;
  * @version 1.1
  */
 
-@TeleOp(name="Prototype Bot", group="Iterative Opmode")
+@TeleOp(name="Prototype Bot", group="Extra")
 public class ProtoBotTeleOP extends OpMode {
     //Create a reference for determining the Elapsed Time.
     private ElapsedTime runtime = new ElapsedTime();
