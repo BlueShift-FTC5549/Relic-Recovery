@@ -5,11 +5,14 @@ The robot code of the team Blue Shift (FTC 5549) for the FIRST Tech Challenge 20
 
 ftc_app: https://github.com/ftctechnh/ftc_app
 
+
 ## Contact Us
 Find us on the FTC Discord, tagged: team 5549. Email us at robotics@ashevilleschool.org .
 
 
-
 ## Release Information
 
-Empty.
+### OpModes
+*Mecanum Drive (TeleOP)  -  (In Progress) Control a four wheeled mecanum robot.
+*ProtoBot Drive  (TeleOP)  -  Control our Prototype Bot (Four wheeled)
+*AllScore (Autonomous)  -  (In Progress) Do everything the robot can during autonomous.
