@@ -13,6 +13,6 @@ Find us on the FTC Discord, tagged: team 5549. Email us at robotics@ashevillesch
 ## Release Information
 
 ### OpModes
-*Mecanum Drive (TeleOP)  -  (In Progress) Control a four wheeled mecanum robot.
-*ProtoBot Drive  (TeleOP)  -  Control our Prototype Bot (Four wheeled)
-*AllScore (Autonomous)  -  (In Progress) Do everything the robot can during autonomous.
+* Mecanum Drive (TeleOP)  -  (In Progress) Control a four wheeled mecanum robot.
+* ProtoBot Drive  (TeleOP)  -  Control our Prototype Bot (Four wheeled)
+* AllScore (Autonomous)  -  (In Progress) Do everything the robot can during autonomous. Has VuForia code.
