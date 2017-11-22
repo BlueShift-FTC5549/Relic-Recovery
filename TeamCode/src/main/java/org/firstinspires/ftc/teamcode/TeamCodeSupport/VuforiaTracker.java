@@ -1,14 +1,17 @@
 package org.firstinspires.ftc.teamcode.TeamCodeSupport;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
+ * This is the VuForia tracking mechanism for a VuMark completely rolled into one function. To use
+ * this, a team MUST enter in its Vuforia License Key to continue. This class is a compressed
+ * version of the VuMark tracking sample code. It uses the "RelicVumark" files in the Assets section
+ * of the project and looks for them, returning either CENTER, LEFT, RIGHT, or UNKNOWN values using
+ * the enum {@link RelicRecoveryVuMark}.
  *
  * @author Gabriel Wong
  * @version 1.0
@@ -70,6 +73,8 @@ public class VuforiaTracker {
      * visible. RelicRecoveryVuMark is an enumeration which can have the following values: UNKNOWN,
      * LEFT, CENTER, and RIGHT. When a VuMark is visible, something other than UNKNOWN will be
      * returned by the RelicRecoveryVuMark#from(VuforiaTrackable)}.
+     *
+     * @return RelicRecoveryVuMark - the vuMark that the tracker can currently see.
      */
     public RelicRecoveryVuMark track() {
         return RelicRecoveryVuMark.from(relicTemplate);
