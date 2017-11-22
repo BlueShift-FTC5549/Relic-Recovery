@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeamCodeSupport;
+package org.blueshiftrobotics.vision;
 
 /**
  * A Point object created for recording where the coordinates of and orienting the robot during
@@ -56,11 +56,7 @@ public class Point {
     }
 
     public boolean equals(Point point) {
-        if ( x == point.getX() && y == point.getY() ) {
-            return true;
-        } else {
-            return false;
-        }
+        return x == point.getX() && y == point.getY();
     }
 
     public String toString() {

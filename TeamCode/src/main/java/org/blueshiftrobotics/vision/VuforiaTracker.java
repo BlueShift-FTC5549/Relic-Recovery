@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeamCodeSupport;
+package org.blueshiftrobotics.vision;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
