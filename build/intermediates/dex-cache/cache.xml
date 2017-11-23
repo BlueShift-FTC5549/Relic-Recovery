@@ -2,13 +2,31 @@
 <items version="2" >
 
     <item
-        is-multidex="false"
-        jar="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/bundles/default/classes.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/8f589da5fa2a3f087628292666efbbbc1098860d/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="63096d280a6d0792ddbe5601216c3bc2bb685e8c">
-        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_1e5d853dc69c60b415bf108a7ae90f0d8bcf0f65.jar" />
+        sha1="9dafed45e330aec14abcce05bdb7bbdb2a2d7092">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_164e2111fed02b09c94bf8bba67037ef35db3b7a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/d14a4078f8d8118e545d35a137f2e1e66fa66bcd/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="75bdc736b17d8f39d246beac357cb3a0e007fcfa">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_e13d2b5faee2f7298459c8ff80125ca0fd227a8a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/25d56e1ed712b0fae090e4a425785286da23dc13/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9403be210676ed196cdcc64c7391b9ae2361c174">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_780ae680f4a15e8b9a00a2a0d0ff3a8d4c7938de/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -20,13 +38,22 @@
         <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_45f16e1306e43b88712c4e2577ce886ef663ceb8.jar" />
     </item>
     <item
-        is-multidex="false"
-        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/support-annotations-23.4.0.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="5a214d3b1b12e72f4fb0d5d5d8d0ec43c96de2b5">
-        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_92d51948be8c667e4ba1af3223a07aa07e71dea5.jar" />
+        sha1="e259d01a014f392930432e85cc1ac9bf807a92df">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f3cefb095d314a3df0058f9a5be2c77950076d47/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1da864b226ecb0f9e8578c6224f5343300180d4d/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -47,13 +74,31 @@
         <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_d0ec5a10f2b40fd723afbbc180c17259b8ac2184.jar" />
     </item>
     <item
-        is-multidex="false"
-        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/Vuforia.jar"
-        jumboMode="false"
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/d6485a6e3d533bbb89a9e9b1f0c8aa683f29f621/output/jars/classes.jar"
+        jumboMode="true"
         optimize="true"
         revision="25.0.3"
-        sha1="91b46366eb9f8203073ee2935087c097c888c0ed">
-        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/Vuforia_5b8ed231ce8d114a50d53988e80b2ad98b7af63f.jar" />
+        sha1="96cbbea552fe9bf3c56540c7e4912eb5cf72301e">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_15e0608e7a764b66e96197c18ff7e41593f87f71/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="3d4481a8fd0d9f5ac08fa5e0396fdae09171c6a4">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_5f0cc74559e0e2d6a4423696f46cfd6abadb527b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c2abba0621a5319232804767218216568263aa37">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_3b7b192597518bd504c1240cca37b5d1d7fa7bb2/classes.dex" />
     </item>
     <item
         is-multidex="false"
@@ -65,6 +110,15 @@
         <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_0cd22d6a0144f82b3059b76a4e0f55d126e0f83b.jar" />
     </item>
     <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/libs/javac.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="c576121aac49e547b39aedfb1daa29782db4166c">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/javac_ddd1a3ce0f40098f7fcae8a9d1c6b6d219c0131b/classes.dex" />
+    </item>
+    <item
         is-multidex="false"
         jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/gson-2.8.0.jar"
         jumboMode="false"
@@ -72,15 +126,6 @@
         revision="25.0.3"
         sha1="e118dd0900e4a18fb928ebb8df2d9fbda78f2b5d">
         <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/gson-2.8.0_ddfc64a6137061982efb8a66594d9f60902fe54b.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="/Users/wongg19/.android/build-cache/2f1d5e96b5fb503684e369d49d09b99f83ad1bec/output/jars/classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="25.0.3"
-        sha1="96cbbea552fe9bf3c56540c7e4912eb5cf72301e">
-        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_e47cc3905796385fef37fe52cb56668ef7e0cc2e.jar" />
     </item>
     <item
         is-multidex="false"
@@ -108,6 +153,87 @@
         revision="25.0.3"
         sha1="e259d01a014f392930432e85cc1ac9bf807a92df">
         <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_1b5211d4c6b9dbe7ef8b2d001f8754fb872d9cac.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/FtcRobotController/build/intermediates/bundles/default/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="63096d280a6d0792ddbe5601216c3bc2bb685e8c">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_1e5d853dc69c60b415bf108a7ae90f0d8bcf0f65.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/libs/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a214d3b1b12e72f4fb0d5d5d8d0ec43c96de2b5">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_15560ed1ddf6ae11d2e4b3193b4b26741f602843/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/libs/gson-2.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="e118dd0900e4a18fb928ebb8df2d9fbda78f2b5d">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.8.0_a05799590d180f3c0e2e8d51ff5803f58aab9f04/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/libs/Vuforia.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="91b46366eb9f8203073ee2935087c097c888c0ed">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/Vuforia_f5cd15387b2e25dcea93f6bac9cc8b6f88ec08d8/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/support-annotations-23.4.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="5a214d3b1b12e72f4fb0d5d5d8d0ec43c96de2b5">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/support-annotations-23.4.0_92d51948be8c667e4ba1af3223a07aa07e71dea5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/f228fe6960fa2da98e63f8d386ecdbfc02f29a55/output/jars/libs/Vuforia.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="91b46366eb9f8203073ee2935087c097c888c0ed">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/Vuforia_5b8ed231ce8d114a50d53988e80b2ad98b7af63f.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/3e7ab8f7ee73be94852ef8e761193604a4ffef7b/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="9da82f9829b6cafb8407989729481220ca06c905">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/classes_82041b10d6e3aaf7eab7742715784c7b30d2ba76/classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wongg19/.android/build-cache/2f1d5e96b5fb503684e369d49d09b99f83ad1bec/output/jars/classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.3"
+        sha1="96cbbea552fe9bf3c56540c7e4912eb5cf72301e">
+        <dex dex="/Users/wongg19/Google Drive/Robotics 2017-2018/ftc_app-master/TeamCode/build/intermediates/pre-dexed/debug/classes_e47cc3905796385fef37fe52cb56668ef7e0cc2e.jar" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wongg19/.android/build-cache/4905a01604f9e658c06d7fd9166ffe0fb1392b14/output/jars/libs/gson-extras-0.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.3"
+        sha1="b30c2655badcc7ce97f84e49f777b7dd154bad57">
+        <dex dex="/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10/gson-extras-0.2.1_2eaea2e72a28e2dfdd71e59804e8df5bb8943eb6/classes.dex" />
     </item>
     <item
         is-multidex="false"

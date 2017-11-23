@@ -1,15 +1,15 @@
 [
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/activity_ftc_wifi_channel_selector.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_ftc_wifi_channel_selector.xml"
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/port_attached_row.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/port_attached_row.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/analog_inputs.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/analog_inputs.xml"
     },
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/port_attached_row.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/port_attached_row.xml"
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/activity_ftc_wifi_channel_selector.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_ftc_wifi_channel_selector.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/layout/pwms.xml",

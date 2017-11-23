@@ -1,0 +1,7 @@
+#Thu Nov 23 12:54:29 EST 2017
+base.0=/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_5f0cc74559e0e2d6a4423696f46cfd6abadb527b
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1da864b226ecb0f9e8578c6224f5343300180d4d/classes.dex
+base.1=/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_1da864b226ecb0f9e8578c6224f5343300180d4d
+file.0=/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_5f0cc74559e0e2d6a4423696f46cfd6abadb527b/classes.dex
