@@ -23,6 +23,9 @@ public class VuforiaTracker {
     private VuforiaTrackables relicTrackables;
     private VuforiaTrackable relicTemplate;
 
+    String vuforiaLicenseKey = "AQfdha3/////AAAAGZL0n1bAsE6PhPRk2ZsrU28GbeRb+R9mOTvsv5dv8xLA+Fi/2ZqLOjcq93npWWM6jcqlyPmp76pka6/mCQEqGXEWZ2hHSaTOB8/XSgSao69oTendDtVCQjMY0ewFVhgXlg63pNtHIbq1OTchsAiuyfPIaTWs3Mii/JTqZEpNdlCSS1mshiYXH2fxUwmC/U5onbwMr3VNejuJS60rYacIzSkeYIRbMeeYNhxfJej4nNxrVPkCKcgkw10CHeKlnNLD9LuzSB6u/5dl1mSXsDh4P8gj02JjVYtWmEqvVRWC744RK97jA3KEemN9ALm6owsXtrCVN1CWnkOdlPJWFGlGZILEx7rxb9/st5hqUweC8iLs";
+
+
     /**
      * This constructor initializes all of the Vuforia necessities. It activities the program with
      * our team's vuforia license key, outputs the view to the RC, and tells the program what object
@@ -32,7 +35,7 @@ public class VuforiaTracker {
      */
     public VuforiaTracker(int cameraMonitorViewId) {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-        parameters.vuforiaLicenseKey = "ATsODcD/////AAAAAVw2lR...d45oGpdljdOh5LuFB9nDNfckoxb8COxKSFX";
+        parameters.vuforiaLicenseKey = vuforiaLicenseKey;
 
         //Indicate what camera to use
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
@@ -50,7 +53,7 @@ public class VuforiaTracker {
      */
     public VuforiaTracker() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
-        parameters.vuforiaLicenseKey = "ATsODcD/////AAAAAVw2lR...d45oGpdljdOh5LuFB9nDNfckoxb8COxKSFX";
+        parameters.vuforiaLicenseKey = vuforiaLicenseKey;
 
         //Indicate what camera to use
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;

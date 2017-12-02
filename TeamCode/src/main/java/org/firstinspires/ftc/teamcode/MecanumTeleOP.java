@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.blueshiftrobotics.vision.Point;
+import org.blueshiftrobotics.driveSupport.FieldPoint;
+import org.blueshiftrobotics.driveSupport.MecanumDrive;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode". An OpMode is a 'program'
@@ -19,23 +20,24 @@ import org.blueshiftrobotics.vision.Point;
  * the two bumpers of gamepad 1. The left stick controllers both direction and speed (direction is
  * the angle formed by the stick, and speed is the distance it is pushed from the center).
  *
- * The autonomous period uses the Point object to record its location and travels to different areas
+ * The autonomous period uses the FieldPoint object to record its location and travels to different areas
  * on the field with this coordinate system. It uses the camera to find the locations of cubes
  * (Cyphers) and travels to their locations; the robot grabs the cubes and transports it to the
  * cypher box location.
  *
  * @author Gabriel Wong
- * @version 1.1
+ * @version 1.2
  */
 
 @TeleOp(name="Mecanum Drive", group="Main OPMode")
 public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftBack, leftFront;
-    private DcMotor rightBack, rightFront;
+    private DcMotor leftBack, leftFront, rightBack, rightFront;
 
-    private final Point STARTING_LOCATION = new Point(0,0);
-    private Point currentLocation = new Point(STARTING_LOCATION);
+    private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
+    private final double CONTROLLER_TOLERANCE = 0.10;
+
+    MecanumDrive mecanumDrive;
 
     /**
      * Run once when the 'init' button is pressed. The motor objects are set to their named hardware
@@ -44,13 +46,18 @@ public class MecanumTeleOP extends OpMode {
     @Override public void init() {
         telemetry.addData("Status", "Initialized");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
+        //Declare the four motors and create a new Mecanum Drive controller out of them.
+        DcMotor leftBack, leftFront, rightBack, rightFront;
+
+
+        //Assign the motors a hardwareMap counterpart
         leftBack  = hardwareMap.get(DcMotor.class, "leftBack");
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
+
+        //Create the mecanum drive object
+        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -79,57 +86,64 @@ public class MecanumTeleOP extends OpMode {
     @Override public void loop() {
         //TODO: actually test and research this mecanum control function
         double dAngle, dSpeed, dRotation;
-        int leftBumperValue, rightBumperValue;
 
-        if (gamepad1.left_bumper) { leftBumperValue = 1; } else { leftBumperValue = 0; }
-        if (gamepad1.right_bumper) { rightBumperValue = 1; } else { rightBumperValue = 0; }
+        if ( (CONTROLLER_TOLERANCE > gamepad1.left_stick_x && gamepad1.left_stick_x  > -CONTROLLER_TOLERANCE) && (CONTROLLER_TOLERANCE > gamepad1.left_stick_y && gamepad1.left_stick_y  > -CONTROLLER_TOLERANCE)) { //If the sticks are within a certain value, then it is basically zero.
+            dAngle = 0.0;
+            dSpeed = 0.0;
+        } else if (gamepad1.left_stick_x != 0 && gamepad1.left_stick_y != 0) {
+            dAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x);
 
-        // Create the three Mecanum control variables.
-        if (gamepad1.left_stick_x != 0) {
-            if (gamepad1.left_stick_x > 0) {
-                dAngle = Math.atan(gamepad1.left_stick_y / gamepad1.left_stick_x);
-            } else {
-                dAngle = -Math.atan(gamepad1.left_stick_y / gamepad1.left_stick_x);
-            }
-
-            dSpeed = Range.clip(gamepad1.left_stick_y / gamepad1.left_stick_x, -1.0, 1.0);
-        } else {
-            if (gamepad1.left_stick_y < 0) {
-                dAngle = 3 * Math.PI/2;
-            } else {
+            dSpeed = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
+        } else if (gamepad1.left_stick_y != 0) {
+            if (-gamepad1.left_stick_y > 0) {
                 dAngle = Math.PI/2;
+            } else {
+                dAngle = 3 * Math.PI/2;
             }
 
-            dSpeed = Range.clip(gamepad1.left_stick_y, -1.0, 1.0);
+            dSpeed = Math.abs(gamepad1.left_stick_y);
+        } else if (gamepad1.left_stick_x != 0) {
+            if (gamepad1.left_stick_x > 0) {
+                dAngle = 0.0;
+            } else {
+                dAngle = Math.PI;
+            }
+
+            dSpeed = Math.abs(gamepad1.left_stick_x);
+        } else {
+            dAngle = 0.0;
+            dSpeed = 0.0;
         }
 
-        //Set whether to rotate or not by the bumper values.
-        dRotation = rightBumperValue - leftBumperValue;
+        //Set the rotation factor to the left_trigger's value, or set it to the right_trigger's value if left_trigger is zero.
+        if ((gamepad1.left_trigger > 0) && (gamepad1.right_trigger > 0)) {
+            dRotation = 0;
+        } else if (gamepad1.left_trigger > 0) {
+            dRotation = -gamepad1.left_trigger;
+        } else if (gamepad1.right_trigger > 0) {
+            dRotation = gamepad1.right_trigger;
+        } else {
+            dRotation = 0;
+        }
 
-        //Calculate the Voltage Multipliers For The Motors and Set Them
-        //Left Motors
-        leftFront.setPower(dSpeed * Math.sin(dAngle + Math.PI/4) + dRotation); // Front V = dSpeed * sin(dAngle + pi/4) + v0
-        leftBack.setPower(dSpeed * Math.cos(dAngle + Math.PI/4) + dRotation); // Back V = dSpeed * cos(dAngle + pi/4) + v0
+        //Make all angles positive.
+        if (dAngle < 0) {
+            dAngle += 2*Math.PI;
+        }
 
-        //Right Motors
-        rightFront.setPower(dSpeed * Math.cos(dAngle + Math.PI/4) - dRotation); // Front V = dSpeed * cos(dAngle + pi/4) - v0
-        rightBack.setPower(dSpeed * Math.sin(dAngle + Math.PI/4) - dRotation); // Front V = dSpeed * cos(dAngle + pi/4) - v0
+        mecanumDrive.drive(dAngle, dSpeed, dRotation);
 
+        //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
+        double dAngleDisplay = dAngle / Math.PI;
+        double dSpeedPercent = dSpeed * 100;
         //Generate Telemetry
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "Angle (%.2f), Speed (%.2f)", dAngle, dSpeed);
-        telemetry.addData("Rotaton", "Rotating at", dRotation);
+        telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
+        telemetry.addData("Rotaton", "Rotating at (%.2f)", dRotation);
+        telemetry.addData("Controller", "Controller (x,y) = (%.2f), (%.2f)", gamepad1.left_stick_x, gamepad1.left_stick_y);
     }
 
     @Override public void stop() {
-        leftFront.setPower(0.0);
-        leftBack.setPower(0.0);
-        rightFront.setPower(0.0);
-        rightBack.setPower(0.0);
-    }
-
-    //Todo: figure out how to incorporate encoders for precise driving
-    public void driveToPos(Point destination) {
-
+        mecanumDrive.stop();
     }
 }

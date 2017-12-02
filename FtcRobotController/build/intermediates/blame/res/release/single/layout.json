@@ -1,23 +1,23 @@
 [
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/activity_view_logs.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_view_logs.xml"
-    },
-    {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/item_list_parent.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/item_list_parent.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/activity_view_logs.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_view_logs.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/lynx_module.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/lynx_module.xml"
     },
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/red_line.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/red_line.xml"
-    },
-    {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/template_info.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/template_info.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/red_line.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/red_line.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/legacy.xml",
@@ -40,12 +40,12 @@
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/info_button.xml"
     },
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/file_info.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/file_info.xml"
-    },
-    {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/analog_output_device.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/analog_output_device.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/file_info.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/file_info.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/release/layout/header.xml",

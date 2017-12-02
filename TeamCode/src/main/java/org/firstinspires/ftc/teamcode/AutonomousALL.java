@@ -3,11 +3,12 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.blueshiftrobotics.vision.MecanumDrive;
-import org.blueshiftrobotics.vision.Point;
+import org.blueshiftrobotics.driveSupport.MecanumDrive;
+import org.blueshiftrobotics.driveSupport.Gyroscope;
+import org.blueshiftrobotics.driveSupport.FieldPoint;
 import org.blueshiftrobotics.vision.VuforiaTracker;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 
@@ -25,8 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 public class AutonomousALL extends LinearOpMode {
     //Create the object to keep track of Elapsed Time, set the starting location, and keep track of the current location.
     private ElapsedTime runtime = new ElapsedTime();
-    private final Point STARTING_LOCATION = new Point(1,1); //TODO: Update starting location
-    private Point currentLocation = new Point(STARTING_LOCATION);
+    private final FieldPoint STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
 
     /**
      * Since this is a linear (not iterative) OpMode, there is only one function that will run one
@@ -34,6 +34,8 @@ public class AutonomousALL extends LinearOpMode {
      * inside, but the entire method will not loop.
      */
     @Override public void runOpMode() {
+        Gyroscope gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+        /*
         //Declare the four motors and create a new Mecanum Drive controller out of them.
         DcMotor leftBack, leftFront, rightBack, rightFront;
         MecanumDrive mecanumDrive;
@@ -45,15 +47,24 @@ public class AutonomousALL extends LinearOpMode {
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
 
         //Create the mecanum drive object
-        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
+        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
 
         //Wait for user input before continuing.
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
-
+*/
         //Search for the Relic
-        searchForRelic();
+        RelicRecoveryVuMark vuMark = searchForRelic();
+
+        if (vuMark == RelicRecoveryVuMark.CENTER) {
+            telemetry.addData(">", "CENTER");
+        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            telemetry.addData(">", "RIGHT");
+        } else if (vuMark == RelicRecoveryVuMark.LEFT) {
+            telemetry.addData(">", "LEFT");
+        }
+        telemetry.update();
     }
 
     /**
