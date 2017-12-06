@@ -6,10 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.blueshiftrobotics.driveSupport.MecanumDrive;
-import org.blueshiftrobotics.driveSupport.Gyroscope;
-import org.blueshiftrobotics.driveSupport.FieldPoint;
-import org.blueshiftrobotics.vision.VuforiaTracker;
+import org.blueshift.drivesupport.Gyroscope;
+import org.blueshift.drivesupport.FieldPoint;
+import org.blueshift.vision.VuforiaTracker;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 
 /**

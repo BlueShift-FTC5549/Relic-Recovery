@@ -1,13 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.blueshiftrobotics.driveSupport.FieldPoint;
-import org.blueshiftrobotics.driveSupport.MecanumDrive;
+import org.blueshift.drivesupport.FieldPoint;
+import org.blueshift.drivesupport.Gyroscope;
+import org.blueshift.drivesupport.MecanumDrive;
+import org.blueshift.drivesupport.TankDrive;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode". An OpMode is a 'program'
@@ -33,11 +36,15 @@ import org.blueshiftrobotics.driveSupport.MecanumDrive;
 public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
+    private DcMotor glyphLeft, glyphRight;
 
     private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
     private final double CONTROLLER_TOLERANCE = 0.10;
 
-    MecanumDrive mecanumDrive;
+    private Boolean usingMecanum = false;
+
+    private MecanumDrive mecanumDrive;
+    private TankDrive tankDrive;
 
     /**
      * Run once when the 'init' button is pressed. The motor objects are set to their named hardware
@@ -56,8 +63,17 @@ public class MecanumTeleOP extends OpMode {
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
 
+        glyphLeft = hardwareMap.get(DcMotor.class, "glyphLeft");
+        glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
+
+        glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
         //Create the mecanum drive object
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
+        tankDrive = new TankDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
+
+        //gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -87,60 +103,93 @@ public class MecanumTeleOP extends OpMode {
         //TODO: actually test and research this mecanum control function
         double dAngle, dSpeed, dRotation;
 
-        if ( (CONTROLLER_TOLERANCE > gamepad1.left_stick_x && gamepad1.left_stick_x  > -CONTROLLER_TOLERANCE) && (CONTROLLER_TOLERANCE > gamepad1.left_stick_y && gamepad1.left_stick_y  > -CONTROLLER_TOLERANCE)) { //If the sticks are within a certain value, then it is basically zero.
-            dAngle = 0.0;
-            dSpeed = 0.0;
-        } else if (gamepad1.left_stick_x != 0 && gamepad1.left_stick_y != 0) {
-            dAngle = Math.atan2(-gamepad1.left_stick_y, gamepad1.left_stick_x);
+        if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
+            usingMecanum = false;
+        } else {
+            usingMecanum = true;
+        }
 
-            dSpeed = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
-        } else if (gamepad1.left_stick_y != 0) {
-            if (-gamepad1.left_stick_y > 0) {
-                dAngle = Math.PI/2;
-            } else {
-                dAngle = 3 * Math.PI/2;
-            }
-
-            dSpeed = Math.abs(gamepad1.left_stick_y);
-        } else if (gamepad1.left_stick_x != 0) {
-            if (gamepad1.left_stick_x > 0) {
+        /* ** ** ** ** ** ** ** ** **/
+        /*    Mecanum Drive Code    */
+        /* ** ** ** ** ** ** ** ** **/
+        if (usingMecanum) {
+            if ((CONTROLLER_TOLERANCE > gamepad1.right_stick_x && gamepad1.right_stick_x > -CONTROLLER_TOLERANCE) && (CONTROLLER_TOLERANCE > gamepad1.right_stick_y && gamepad1.right_stick_y > -CONTROLLER_TOLERANCE)) { //If the sticks are within a certain value, then it is basically zero.
                 dAngle = 0.0;
+                dSpeed = 0.0;
+            } else if (gamepad1.right_stick_x != 0 && gamepad1.right_stick_y != 0) {
+                dAngle = Math.atan2(-gamepad1.right_stick_y, gamepad1.right_stick_x);
+
+                dSpeed = Math.hypot(gamepad1.right_stick_x, gamepad1.right_stick_y);
+            } else if (gamepad1.right_stick_y != 0) {
+                if (-gamepad1.right_stick_y > 0) {
+                    dAngle = Math.PI / 2;
+                } else {
+                    dAngle = 3 * Math.PI / 2;
+                }
+
+                dSpeed = Math.abs(gamepad1.right_stick_y);
+            } else if (gamepad1.right_stick_x != 0) {
+                if (gamepad1.right_stick_x > 0) {
+                    dAngle = 0.0;
+                } else {
+                    dAngle = Math.PI;
+                }
+
+                dSpeed = Math.abs(gamepad1.right_stick_x);
             } else {
-                dAngle = Math.PI;
+                dAngle = 0.0;
+                dSpeed = 0.0;
             }
 
-            dSpeed = Math.abs(gamepad1.left_stick_x);
+            //Make all angles positive.
+            if (dAngle < 0) {
+                dAngle += 2 * Math.PI;
+            }
+
+            //Set the rotation factor to the left_trigger's value, or set it to the right_trigger's value if left_trigger is zero.
+            if ((gamepad1.left_trigger > 0) && (gamepad1.right_trigger > 0)) {
+                dRotation = 0;
+            } else if (gamepad1.left_trigger > 0) {
+                dRotation = -gamepad1.left_trigger;
+            } else if (gamepad1.right_trigger > 0) {
+                dRotation = gamepad1.right_trigger;
+            } else {
+                dRotation = 0;
+            }
+
+            mecanumDrive.drive(dAngle, dSpeed, dRotation);
+
+            //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
+            double dAngleDisplay = dAngle / Math.PI;
+            double dSpeedPercent = dSpeed * 100;
+
+            telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
+            telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
+        }
+
+        /* ** ** ** ** ** ** ** ** **/
+        /*      Tank Drive Code     */
+        /* ** ** ** ** ** ** ** ** **/
+        if (!usingMecanum) {
+            tankDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x);
+        }
+
+        /* ** ** ** ** ** ** ** ** **/
+        /*      Auxiliary Code      */
+        /* ** ** ** ** ** ** ** ** **/
+        if (gamepad1.right_bumper) {
+            glyphRight.setPower(1.0);
+            glyphLeft.setPower(1.0);
+        } else if (gamepad1.left_bumper) {
+            glyphRight.setPower(-1.0);
+            glyphLeft.setPower(-1.0);
         } else {
-            dAngle = 0.0;
-            dSpeed = 0.0;
+            glyphRight.setPower(0.0);
+            glyphLeft.setPower(0.0);
         }
 
-        //Set the rotation factor to the left_trigger's value, or set it to the right_trigger's value if left_trigger is zero.
-        if ((gamepad1.left_trigger > 0) && (gamepad1.right_trigger > 0)) {
-            dRotation = 0;
-        } else if (gamepad1.left_trigger > 0) {
-            dRotation = -gamepad1.left_trigger;
-        } else if (gamepad1.right_trigger > 0) {
-            dRotation = gamepad1.right_trigger;
-        } else {
-            dRotation = 0;
-        }
-
-        //Make all angles positive.
-        if (dAngle < 0) {
-            dAngle += 2*Math.PI;
-        }
-
-        mecanumDrive.drive(dAngle, dSpeed, dRotation);
-
-        //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
-        double dAngleDisplay = dAngle / Math.PI;
-        double dSpeedPercent = dSpeed * 100;
         //Generate Telemetry
         telemetry.addData("Status", "Run Time: " + runtime.toString());
-        telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
-        telemetry.addData("Rotaton", "Rotating at (%.2f)", dRotation);
-        telemetry.addData("Controller", "Controller (x,y) = (%.2f), (%.2f)", gamepad1.left_stick_x, gamepad1.left_stick_y);
     }
 
     @Override public void stop() {
