@@ -1,14 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.blueshift.drivesupport.FieldPoint;
-import org.blueshift.drivesupport.Gyroscope;
 import org.blueshift.drivesupport.MecanumDrive;
 import org.blueshift.drivesupport.TankDrive;
 
@@ -29,19 +28,18 @@ import org.blueshift.drivesupport.TankDrive;
  * cypher box location.
  *
  * @author Gabriel Wong
- * @version 1.2
+ * @version 1.3
  */
 
 @TeleOp(name="Mecanum Drive", group="Main OPMode")
 public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
-    private DcMotor glyphLeft, glyphRight;
+    private DcMotor glyphLeft, glyphRight, liftMotor;
+    private Servo bucketServo;
 
     private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
     private final double CONTROLLER_TOLERANCE = 0.10;
-
-    private Boolean usingMecanum = false;
 
     private MecanumDrive mecanumDrive;
     private TankDrive tankDrive;
@@ -51,12 +49,6 @@ public class MecanumTeleOP extends OpMode {
      * map counterparts in the phone configuration.
      */
     @Override public void init() {
-        telemetry.addData("Status", "Initialized");
-
-        //Declare the four motors and create a new Mecanum Drive controller out of them.
-        DcMotor leftBack, leftFront, rightBack, rightFront;
-
-
         //Assign the motors a hardwareMap counterpart
         leftBack  = hardwareMap.get(DcMotor.class, "leftBack");
         leftFront = hardwareMap.get(DcMotor.class, "leftFront");
@@ -66,53 +58,59 @@ public class MecanumTeleOP extends OpMode {
         glyphLeft = hardwareMap.get(DcMotor.class, "glyphLeft");
         glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
 
+        liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
+        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+
+
+        //Set the direction of each motor
+        leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+
         glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //Create the mecanum drive object
-        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
-        tankDrive = new TankDrive(leftBack, leftFront, rightBack, rightFront, STARTING_LOCATION);
+        liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+
+        //Create the two different drive objects
+        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
+        tankDrive    = new TankDrive(leftBack, leftFront, rightBack, rightFront);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
 
-    /**
-     * The init_loop method runs continuously after the driver hits 'init' but before he or she hits
-     * 'play'.
-     */
     @Override public void init_loop() {
 
     }
 
-    /**
-     * Run once when the 'play' button is pressed.
-     */
     @Override public void start() {
         runtime.reset();
     }
 
     /**
      * The loop function is run continuously from when the driver presses 'play' to when he presses
-     * 'stop' or aborts the program. This method continuously updates the mecanum drives according
-     * to the left joystick and the two top bumpers.
+     * 'stop' or aborts the program. If the user is moving the right stick of gamepad 1, then the
+     * mecanum drive will be controlled, and the left stick's x component is used for rotation. If
+     * the user is moving the left stick of gamepad 1, then the tank drive will be controlled with
+     * a single stick configuration. If both are pressed, mecanum will be the default drive.
+     *
+     * The two glyph intake controls are controlled with the bumpers of gamepad 1, and the lift
+     * motor is controlled with the triggers. The button to move the servo down is 'a', and the
+     * button to move it up is 'b'.
+     *
+     * The Mecanum angle is the angle that the stick is pushed at, and the speed is how hard the
+     * stick is pushed.
      */
     @Override public void loop() {
-        //TODO: actually test and research this mecanum control function
         double dAngle, dSpeed, dRotation;
 
-        if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
-            usingMecanum = false;
-        } else {
-            usingMecanum = true;
-        }
-
         /* ** ** ** ** ** ** ** ** **/
-        /*    Mecanum Drive Code    */
+        /*     Drive Train Code     */
         /* ** ** ** ** ** ** ** ** **/
-        if (usingMecanum) {
+        if (gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0) {
             if ((CONTROLLER_TOLERANCE > gamepad1.right_stick_x && gamepad1.right_stick_x > -CONTROLLER_TOLERANCE) && (CONTROLLER_TOLERANCE > gamepad1.right_stick_y && gamepad1.right_stick_y > -CONTROLLER_TOLERANCE)) { //If the sticks are within a certain value, then it is basically zero.
                 dAngle = 0.0;
                 dSpeed = 0.0;
@@ -128,7 +126,7 @@ public class MecanumTeleOP extends OpMode {
                 }
 
                 dSpeed = Math.abs(gamepad1.right_stick_y);
-            } else if (gamepad1.right_stick_x != 0) {
+            } else {
                 if (gamepad1.right_stick_x > 0) {
                     dAngle = 0.0;
                 } else {
@@ -136,9 +134,6 @@ public class MecanumTeleOP extends OpMode {
                 }
 
                 dSpeed = Math.abs(gamepad1.right_stick_x);
-            } else {
-                dAngle = 0.0;
-                dSpeed = 0.0;
             }
 
             //Make all angles positive.
@@ -146,16 +141,8 @@ public class MecanumTeleOP extends OpMode {
                 dAngle += 2 * Math.PI;
             }
 
-            //Set the rotation factor to the left_trigger's value, or set it to the right_trigger's value if left_trigger is zero.
-            if ((gamepad1.left_trigger > 0) && (gamepad1.right_trigger > 0)) {
-                dRotation = 0;
-            } else if (gamepad1.left_trigger > 0) {
-                dRotation = -gamepad1.left_trigger;
-            } else if (gamepad1.right_trigger > 0) {
-                dRotation = gamepad1.right_trigger;
-            } else {
-                dRotation = 0;
-            }
+            //When using the Mecanum drive, set the rotation to the x value of the left stick.
+            dRotation = gamepad1.left_stick_x;
 
             mecanumDrive.drive(dAngle, dSpeed, dRotation);
 
@@ -165,22 +152,24 @@ public class MecanumTeleOP extends OpMode {
 
             telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
             telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
+        } else if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
+            //Use the tank drive if Mecanum is not being used
+            tankDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x);
+        } else {
+            mecanumDrive.stop();
+            tankDrive.stop();
         }
 
-        /* ** ** ** ** ** ** ** ** **/
-        /*      Tank Drive Code     */
-        /* ** ** ** ** ** ** ** ** **/
-        if (!usingMecanum) {
-            tankDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x);
-        }
 
         /* ** ** ** ** ** ** ** ** **/
         /*      Auxiliary Code      */
         /* ** ** ** ** ** ** ** ** **/
-        if (gamepad1.right_bumper) {
+
+        //Front intake controls
+        if (gamepad1.left_bumper) {
             glyphRight.setPower(1.0);
             glyphLeft.setPower(1.0);
-        } else if (gamepad1.left_bumper) {
+        } else if (gamepad1.right_bumper) {
             glyphRight.setPower(-1.0);
             glyphLeft.setPower(-1.0);
         } else {
@@ -188,11 +177,13 @@ public class MecanumTeleOP extends OpMode {
             glyphLeft.setPower(0.0);
         }
 
-        //Generate Telemetry
+        //Generate telemetry with the run time.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
 
     @Override public void stop() {
+        //Stop all motors
         mecanumDrive.stop();
+        tankDrive.stop();
     }
 }

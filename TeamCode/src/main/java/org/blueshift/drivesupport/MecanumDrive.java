@@ -16,7 +16,6 @@ import java.lang.Math;
 public class MecanumDrive {
     private DcMotor[] motors = {null, null, null, null};
     private double[] motorPowers = {0.0, 0.0, 0.0, 0.0};
-    double[] encoderPositions    = {0.0, 0.0, 0.0, 0.0};
 
     private FieldPoint currentLocation;
     private double referenceHeading;
@@ -42,21 +41,18 @@ public class MecanumDrive {
      * @param rightBack  - The motor in the right, back position.
      * @param rightFront - The motor in the right, front position.
      */
-    public MecanumDrive(DcMotor leftBack, DcMotor leftFront, DcMotor rightBack, DcMotor rightFront, FieldPoint startLocation) {
+    public MecanumDrive(DcMotor leftBack, DcMotor leftFront, DcMotor rightBack, DcMotor rightFront) {
         motors[0] = leftBack;
         motors[1] = leftFront;
         motors[2] = rightBack;
         motors[3] = rightFront;
 
-        motors[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[1].setDirection(DcMotorSimple.Direction.FORWARD);
-        motors[2].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[3].setDirection(DcMotorSimple.Direction.FORWARD);
-
         for (int i = 0; i < motors.length; i++) {
             motorPowers[i] = 0;
             motors[i].setPower(motorPowers[i]);
         }
+
+        useEncoders(false);
     }
 
     /**
@@ -65,11 +61,12 @@ public class MecanumDrive {
      * modify the original variable's data. This alternate constructor also sets up a gyroscope for
      * use in heading,  etc.
      *
-     * @param leftBack   - The motor in the left, back position.
-     * @param leftFront  - The motor in the left, front position.
-     * @param rightBack  - The motor in the right, back position.
-     * @param rightFront - The motor in the right, front position.
-     * @param gyroscope  - The gyroscope to use.
+     * @param leftBack      - The motor in the left, back position.
+     * @param leftFront     - The motor in the left, front position.
+     * @param rightBack     - The motor in the right, back position.
+     * @param rightFront    - The motor in the right, front position.
+     * @param startLocation - The location where the robot starts.
+     * @param gyroscope     - The gyroscope to use.
      */
     public MecanumDrive(DcMotor leftBack, DcMotor leftFront, DcMotor rightBack, DcMotor rightFront, FieldPoint startLocation, Gyroscope gyroscope) {
         motors[0] = leftBack;
@@ -77,19 +74,18 @@ public class MecanumDrive {
         motors[2] = rightBack;
         motors[3] = rightFront;
 
-        motors[0].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[1].setDirection(DcMotorSimple.Direction.FORWARD);
-        motors[2].setDirection(DcMotorSimple.Direction.REVERSE);
-        motors[3].setDirection(DcMotorSimple.Direction.FORWARD);
-
         for (int i = 0; i < motors.length; i++) {
             motorPowers[i] = 0;
             motors[i].setPower(motorPowers[i]);
         }
 
+        currentLocation = startLocation;
+
         this.gyroscope = gyroscope;
         updateHeading();
         referenceHeading = heading;
+
+        useEncoders(false);
     }
 
     /**
@@ -116,7 +112,7 @@ public class MecanumDrive {
         useEncoders(true);
         for (int i = 0; i < motors.length; i++) {
             motors[i].setPower(ENCODER_DRIVE_SPEED);
-            driveWithEncoders(distance, true);
+            driveWithEncoders(distance);
         }
     }
 
@@ -124,9 +120,8 @@ public class MecanumDrive {
      * Drive a certain distance (in feet), using the encoders to track the distance.
      *
      * @param distance      - The distance to drive.
-     * @param stopGradually - whether or not to spin up and spin down on the ends of the distance.
      */
-    public void driveWithEncoders(double distance, boolean stopGradually) {
+    public void driveWithEncoders(double distance) {
         //dX, dY are in feet - convert to inches too
         int[] encoderTargets = {    (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH),
                                     (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH),
@@ -143,7 +138,6 @@ public class MecanumDrive {
      * @param dRotation  - [-1, 1], The desired speed of rotation for the robot.
      */
     public void drive(double dAngle, double dSpeed, double dRotation) {
-        useEncoders(false);
         motorPowers[0] = dSpeed * Math.cos(dAngle + (Math.PI/4)) - dRotation;
         motorPowers[1] = dSpeed * Math.sin(dAngle + (Math.PI/4)) + dRotation;
         motorPowers[2] = dSpeed * Math.sin(dAngle + (Math.PI/4)) - dRotation;
