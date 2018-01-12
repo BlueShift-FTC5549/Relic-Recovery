@@ -63,6 +63,7 @@ public class AutonomousALL extends LinearOpMode {
         } else if (vuMark == RelicRecoveryVuMark.LEFT) {
             telemetry.addData(">", "LEFT");
         }
+
         telemetry.update();
     }
 

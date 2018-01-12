@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.blueshift.drivesupport.FieldPoint;
@@ -29,21 +27,16 @@ import org.blueshift.drivesupport.TankDrive;
  * cypher box location.
  *
  * @author Gabriel Wong
- * @version 1.4
+ * @version 1.3
  */
 
-@TeleOp(name="Mecanum Drive", group="Main OPMode")
-public class MecanumTeleOP extends OpMode {
+@TeleOp(name="Mecanum TESTING", group="Testing")
+public class MecanumDriveTest extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
-    private DcMotor glyphLeft, glyphRight, liftMotor;
-    private CRServo bucketServo;
 
     private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
     private final double CONTROLLER_TOLERANCE = 0.10;
-
-    private final double INTAKE_POWER = 0.7;
-    private final double BUCKET_POWER = 0.7;
 
     private MecanumDrive mecanumDrive;
     private TankDrive tankDrive;
@@ -59,29 +52,15 @@ public class MecanumTeleOP extends OpMode {
         rightBack = hardwareMap.get(DcMotor.class, "rightBack");
         rightFront = hardwareMap.get(DcMotor.class, "rightFront");
 
-        glyphLeft = hardwareMap.get(DcMotor.class, "glyphLeft");
-        glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
-
-        liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketServo = hardwareMap.get(CRServo.class, "bucketServo");
-
-
         //Set the direction of each motor
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
         rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
-        glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-
         //Create the two different drive objects
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
         tankDrive    = new TankDrive(leftBack, leftFront, rightBack, rightFront);
-
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -155,12 +134,6 @@ public class MecanumTeleOP extends OpMode {
             //When using the Mecanum drive, set the rotation to the x value of the left stick.
             dRotation = gamepad1.left_stick_x;
 
-            //While the right stick button is pressed, increase the driver precision by scaling down power and rotation multipliers.
-            if (gamepad1.right_stick_button) {
-                dSpeed /= 10;
-                dRotation /= 10;
-            }
-
             mecanumDrive.drive(dAngle, dSpeed, dRotation);
 
             //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
@@ -177,41 +150,6 @@ public class MecanumTeleOP extends OpMode {
             tankDrive.stop();
         }
 
-
-        /* ** ** ** ** ** ** ** ** **/
-        /*      Auxiliary Code      */
-        /* ** ** ** ** ** ** ** ** **/
-
-        //Front intake controls
-        if (gamepad1.left_bumper) {
-            glyphRight.setPower(INTAKE_POWER);
-            glyphLeft.setPower(INTAKE_POWER);
-        } else if (gamepad1.right_bumper) {
-            glyphRight.setPower(-INTAKE_POWER);
-            glyphLeft.setPower(-INTAKE_POWER);
-        } else {
-            glyphRight.setPower(0.0);
-            glyphLeft.setPower(0.0);
-        }
-
-        //Glyph Lift Controls
-        if (gamepad1.left_trigger > 0) {
-            liftMotor.setPower(gamepad1.left_trigger);
-        } else if (gamepad1.right_trigger > 0) {
-            liftMotor.setPower(-gamepad1.right_trigger);
-        } else {
-            liftMotor.setPower(0.0);
-        }
-
-        //On A -> Drop the glyph. On B -> Return to the normal configuration
-        if (gamepad1.a) {
-            bucketServo.setPower(BUCKET_POWER);
-        } else if (gamepad1.b) {
-            bucketServo.setPower(-BUCKET_POWER);
-        } else {
-            bucketServo.setPower(0.0);
-        }
-
         //Generate telemetry with the run time.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
     }
@@ -220,8 +158,5 @@ public class MecanumTeleOP extends OpMode {
         //Stop all motors
         mecanumDrive.stop();
         tankDrive.stop();
-
-        mecanumDrive = null;
-        tankDrive = null;
     }
 }
