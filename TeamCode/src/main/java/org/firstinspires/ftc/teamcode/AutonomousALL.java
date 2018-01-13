@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -29,13 +30,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 public class AutonomousALL extends LinearOpMode {
     //Create the object to keep track of Elapsed Time, set the starting location, and keep track of the current location.
     private static       ElapsedTime runtime = new ElapsedTime();
-    private static final FieldPoint  STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
-    private              Gyroscope   gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+    //private static final FieldPoint  STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
+    //private              Gyroscope gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
 
     //Declare the motors and servo
     private DcMotor leftBack, leftFront, rightBack, rightFront;
     private DcMotor glyphLeft, glyphRight, liftMotor;
-    private Servo bucketServo;
+    private CRServo bucketServo, jewelServo;
 
     //Placeholder for the Mecanum Drive object
     private MecanumDrive mecanumDrive;
@@ -52,6 +53,14 @@ public class AutonomousALL extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+
+        mecanumDrive.drive(0, 0.5, 0);
+        sleep(1000);
+        mecanumDrive.drive(Math.PI/2, 0.5, 0.5);
+        sleep(1000);
+        mecanumDrive.drive(Math.PI/2, 0.5, 0);
+        sleep(1000);
+        mecanumDrive.drive(0, 0, 0);
 
         //Search for the Relic
         RelicRecoveryVuMark vuMark = searchForRelic();
@@ -84,7 +93,8 @@ public class AutonomousALL extends LinearOpMode {
         glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
 
         liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+        bucketServo = hardwareMap.get(CRServo.class, "bucketServo");
+        jewelServo = hardwareMap.get(CRServo.class, "jewelServo");
 
 
         //Set the direction of each motor

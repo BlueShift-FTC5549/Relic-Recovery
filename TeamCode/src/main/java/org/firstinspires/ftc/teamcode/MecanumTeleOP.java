@@ -2,11 +2,11 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
 import org.blueshift.drivesupport.FieldPoint;
 import org.blueshift.drivesupport.MecanumDrive;
@@ -37,13 +37,19 @@ public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
     private DcMotor glyphLeft, glyphRight, liftMotor;
-    private CRServo bucketServo;
+
+    //Servo Stuff
+    private ElapsedTime servoRuntime = new ElapsedTime();
+    private Servo bucketServo, jewelServo;
+    private double bucketServoPosition;
+    private double servoDelta = 0.01;
+    private double servoDelayTime = 0.05; //Seconds
 
     private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
     private final double CONTROLLER_TOLERANCE = 0.10;
 
-    private final double INTAKE_POWER = 0.7;
-    private final double BUCKET_POWER = 0.7;
+    private final double OUTTAKE_POWER = 0.7;
+    private final double BUCKET_POWER = 1.0;
 
     private MecanumDrive mecanumDrive;
     private TankDrive tankDrive;
@@ -63,8 +69,10 @@ public class MecanumTeleOP extends OpMode {
         glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
 
         liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketServo = hardwareMap.get(CRServo.class, "bucketServo");
+        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
+        jewelServo = hardwareMap.get(Servo.class, "jewelServo");
 
+        bucketServoPosition = bucketServo.getPosition();
 
         //Set the direction of each motor
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -77,11 +85,9 @@ public class MecanumTeleOP extends OpMode {
 
         liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-
         //Create the two different drive objects
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
         tankDrive    = new TankDrive(leftBack, leftFront, rightBack, rightFront);
-
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -169,7 +175,7 @@ public class MecanumTeleOP extends OpMode {
 
             telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
             telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
-        } else if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0){
+        } else if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
             //Use the tank drive if Mecanum is not being used
             tankDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x);
         } else {
@@ -178,17 +184,18 @@ public class MecanumTeleOP extends OpMode {
         }
 
 
+
         /* ** ** ** ** ** ** ** ** **/
         /*      Auxiliary Code      */
         /* ** ** ** ** ** ** ** ** **/
 
         //Front intake controls
-        if (gamepad1.left_bumper) {
-            glyphRight.setPower(INTAKE_POWER);
-            glyphLeft.setPower(INTAKE_POWER);
-        } else if (gamepad1.right_bumper) {
-            glyphRight.setPower(-INTAKE_POWER);
-            glyphLeft.setPower(-INTAKE_POWER);
+        if (gamepad1.right_bumper) { //OUT
+            glyphRight.setPower(-OUTTAKE_POWER);
+            glyphLeft.setPower(-OUTTAKE_POWER);
+        } else if (gamepad1.right_trigger != 0) {
+            glyphRight.setPower(gamepad1.right_trigger);
+            glyphLeft.setPower(gamepad1.right_trigger);
         } else {
             glyphRight.setPower(0.0);
             glyphLeft.setPower(0.0);
@@ -196,20 +203,31 @@ public class MecanumTeleOP extends OpMode {
 
         //Glyph Lift Controls
         if (gamepad1.left_trigger > 0) {
-            liftMotor.setPower(gamepad1.left_trigger);
-        } else if (gamepad1.right_trigger > 0) {
-            liftMotor.setPower(-gamepad1.right_trigger);
+            liftMotor.setPower(-gamepad1.left_trigger / 2);
+        } else if (gamepad1.left_bumper) {
+            liftMotor.setPower(1.00);
         } else {
             liftMotor.setPower(0.0);
         }
 
         //On A -> Drop the glyph. On B -> Return to the normal configuration
-        if (gamepad1.a) {
-            bucketServo.setPower(BUCKET_POWER);
+        if (gamepad1.y) {
+            bucketServoPosition = 0.5;
+            bucketServo.setPosition(bucketServoPosition);
+        } else if (gamepad1.a) {
+            if (servoRuntime.time() > servoDelayTime) {
+                bucketServoPosition -= servoDelta;
+                bucketServoPosition = Range.clip(bucketServoPosition, 0, 1);
+                bucketServo.setPosition(bucketServoPosition);
+                servoRuntime.reset();
+            }
         } else if (gamepad1.b) {
-            bucketServo.setPower(-BUCKET_POWER);
-        } else {
-            bucketServo.setPower(0.0);
+            if (servoRuntime.time() > servoDelayTime) {
+                bucketServoPosition += servoDelta;
+                bucketServoPosition = Range.clip(bucketServoPosition, 0.1, 0.9);
+                bucketServo.setPosition(bucketServoPosition);
+                servoRuntime.reset();
+            }
         }
 
         //Generate telemetry with the run time.
