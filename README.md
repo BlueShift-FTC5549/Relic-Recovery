@@ -3,6 +3,8 @@
 ## Information
 The robot code of the team Blue Shift (FTC 5549) for the FIRST Tech Challenge 2017-2018 season, Relic Recovery. Based on the given ftc_app. It contains the code for both the driver controller TeleOP and the driver-less autonomous period of the competition.
 
+Our robot design (.dwg): https://drive.google.com/file/d/1XzIxdLa0yXZmtiBmmmdy9j4bp09XOmyk/view?usp=sharing
+
 ftc_app: https://github.com/ftctechnh/ftc_app
 
 
