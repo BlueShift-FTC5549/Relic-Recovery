@@ -6,8 +6,9 @@ import com.qualcomm.robotcore.util.Range;
 
 /**
  *
+ *
  * @author Gabriel Wong
- * @version 0.1 ALPHA
+ * @version 1.0
  */
 
 public class TankDrive {

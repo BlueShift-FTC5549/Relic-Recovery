@@ -12,6 +12,8 @@ import org.blueshift.drivesupport.FieldPoint;
 import org.blueshift.drivesupport.MecanumDrive;
 import org.blueshift.drivesupport.TankDrive;
 
+import java.util.FormatFlagsConversionMismatchException;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode". An OpMode is a 'program'
  * that runs in either the autonomous or the teleop period of an FTC match. The names of OpModes
@@ -36,20 +38,14 @@ import org.blueshift.drivesupport.TankDrive;
 public class MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
-    private DcMotor glyphLeft, glyphRight, liftMotor;
+    private DcMotor glyphLeft, glyphRight, conveyorLeft, conveyorRight;
 
-    //Servo Stuff
-    private ElapsedTime servoRuntime = new ElapsedTime();
-    private Servo bucketServo, jewelServo;
-    private double bucketServoPosition;
-    private double servoDelta = 0.01;
-    private double servoDelayTime = 0.05; //Seconds
-
-    private final FieldPoint STARTING_LOCATION = new FieldPoint(0,0);
     private final double CONTROLLER_TOLERANCE = 0.10;
 
-    private final double OUTTAKE_POWER = 0.7;
-    private final double BUCKET_POWER = 1.0;
+    private double SPEED_MULTIPLIER = 1.0;
+
+    private final double OUTTAKE_POWER = 1.0;
+    private final double INTAKE_POWER = 0.9;
 
     private MecanumDrive mecanumDrive;
     private TankDrive tankDrive;
@@ -67,12 +63,8 @@ public class MecanumTeleOP extends OpMode {
 
         glyphLeft = hardwareMap.get(DcMotor.class, "glyphLeft");
         glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
-
-        liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketServo = hardwareMap.get(Servo.class, "bucketServo");
-        jewelServo = hardwareMap.get(Servo.class, "jewelServo");
-
-        bucketServoPosition = bucketServo.getPosition();
+        conveyorLeft = hardwareMap.get(DcMotor.class, "conveyorLeft");
+        conveyorRight = hardwareMap.get(DcMotor.class, "conveyorRight");
 
         //Set the direction of each motor
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -83,7 +75,8 @@ public class MecanumTeleOP extends OpMode {
         glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        conveyorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        conveyorRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //Create the two different drive objects
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
@@ -167,7 +160,7 @@ public class MecanumTeleOP extends OpMode {
                 dRotation /= 10;
             }
 
-            mecanumDrive.drive(dAngle, dSpeed, dRotation);
+            mecanumDrive.drive(dAngle, dSpeed * SPEED_MULTIPLIER, dRotation);
 
             //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
             double dAngleDisplay = dAngle / Math.PI;
@@ -177,7 +170,7 @@ public class MecanumTeleOP extends OpMode {
             telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
         } else if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
             //Use the tank drive if Mecanum is not being used
-            tankDrive.drive(-gamepad1.left_stick_y, gamepad1.left_stick_x);
+            tankDrive.drive(-gamepad1.left_stick_y * SPEED_MULTIPLIER, gamepad1.left_stick_x);
         } else {
             mecanumDrive.stop();
             tankDrive.stop();
@@ -190,43 +183,39 @@ public class MecanumTeleOP extends OpMode {
         /* ** ** ** ** ** ** ** ** **/
 
         //Front intake controls
-        if (gamepad1.right_bumper) { //OUT
+        if (gamepad1.left_trigger != 0) {
+            glyphRight.setPower(gamepad1.left_trigger);
+            glyphLeft.setPower(gamepad1.left_trigger);
+        } else if (gamepad1.left_bumper) { //OUT
             glyphRight.setPower(-OUTTAKE_POWER);
             glyphLeft.setPower(-OUTTAKE_POWER);
-        } else if (gamepad1.right_trigger != 0) {
-            glyphRight.setPower(gamepad1.right_trigger);
-            glyphLeft.setPower(gamepad1.right_trigger);
         } else {
             glyphRight.setPower(0.0);
             glyphLeft.setPower(0.0);
         }
 
-        //Glyph Lift Controls
-        if (gamepad1.left_trigger > 0) {
-            liftMotor.setPower(-gamepad1.left_trigger / 2);
-        } else if (gamepad1.left_bumper) {
-            liftMotor.setPower(1.00);
+        //Conveyor Controls
+        if (gamepad1.right_trigger != 0) {
+            conveyorLeft.setPower(gamepad1.right_trigger);
+            conveyorRight.setPower(gamepad1.right_trigger);
+        } else if (gamepad1.right_bumper) {
+            conveyorLeft.setPower(OUTTAKE_POWER);
+            conveyorRight.setPower(OUTTAKE_POWER);
         } else {
-            liftMotor.setPower(0.0);
+            conveyorLeft.setPower(0);
+            conveyorRight.setPower(0);
         }
 
-        //On A -> Drop the glyph. On B -> Return to the normal configuration
-        if (gamepad1.y) {
-            bucketServoPosition = 0.5;
-            bucketServo.setPosition(bucketServoPosition);
-        } else if (gamepad1.a) {
-            if (servoRuntime.time() > servoDelayTime) {
-                bucketServoPosition -= servoDelta;
-                bucketServoPosition = Range.clip(bucketServoPosition, 0, 1);
-                bucketServo.setPosition(bucketServoPosition);
-                servoRuntime.reset();
-            }
-        } else if (gamepad1.b) {
-            if (servoRuntime.time() > servoDelayTime) {
-                bucketServoPosition += servoDelta;
-                bucketServoPosition = Range.clip(bucketServoPosition, 0.1, 0.9);
-                bucketServo.setPosition(bucketServoPosition);
-                servoRuntime.reset();
+        //Speed Controls
+        if (gamepad1.dpad_up) {
+            SPEED_MULTIPLIER = SPEED_MULTIPLIER * -1;
+        }
+
+        if (gamepad1.dpad_down) {
+            if (SPEED_MULTIPLIER < 1.0) {
+                SPEED_MULTIPLIER = 1;
+            } else {
+                SPEED_MULTIPLIER = 0.5;
             }
         }
 

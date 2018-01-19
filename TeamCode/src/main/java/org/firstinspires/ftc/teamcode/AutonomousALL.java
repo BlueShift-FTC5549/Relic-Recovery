@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.blueshift.drivesupport.Gyroscope;
 import org.blueshift.drivesupport.FieldPoint;
 import org.blueshift.drivesupport.MecanumDrive;
+import org.blueshift.drivesupport.TankDrive;
 import org.blueshift.vision.VuforiaTracker;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 
@@ -24,22 +25,26 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
  *      - Park in the safe zone
  *
  * @author Gabriel Wong
- * @version 0.4 ALPHA
+ * @version 0.5 ALPHA
  */
 @Autonomous(name="Score All", group ="Corner Stone")
 public class AutonomousALL extends LinearOpMode {
-    //Create the object to keep track of Elapsed Time, set the starting location, and keep track of the current location.
+    private static final FieldPoint  STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
+    private static final double      SEARCHING_DELAY   = 3500; //ms, Pictograph Identification
+
+    //Create the object to keep track of Elapsed Time and keep track of the current location.
     private static       ElapsedTime runtime = new ElapsedTime();
-    //private static final FieldPoint  STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
-    //private              Gyroscope gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+    private              Gyroscope   gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
 
     //Declare the motors and servo
     private DcMotor leftBack, leftFront, rightBack, rightFront;
-    private DcMotor glyphLeft, glyphRight, liftMotor;
-    private CRServo bucketServo, jewelServo;
+    private DcMotor glyphLeft, glyphRight;
+    private DcMotor extendLeft, extendRight;
 
-    //Placeholder for the Mecanum Drive object
-    private MecanumDrive mecanumDrive;
+    //Placeholder for the Tank Drive object
+    private TankDrive tankDrive;
+
+
 
     /**
      * Since this is a linear (not iterative) OpMode, there is only one function that will run one
@@ -54,24 +59,25 @@ public class AutonomousALL extends LinearOpMode {
         telemetry.update();
         waitForStart();
 
-        mecanumDrive.drive(0, 0.5, 0);
-        sleep(1000);
-        mecanumDrive.drive(Math.PI/2, 0.5, 0.5);
-        sleep(1000);
-        mecanumDrive.drive(Math.PI/2, 0.5, 0);
-        sleep(1000);
-        mecanumDrive.drive(0, 0, 0);
+        tankDrive.drive(0.5, 0);
+        sleep(1700);
+        tankDrive.drive(0,0);
 
-        //Search for the Relic
+        glyphLeft.setPower(-0.8);
+        glyphRight.setPower(-0.8);
+
+        sleep(450);
+
+        glyphLeft.setPower(0);
+        glyphRight.setPower(0);
+
+        sleep(100);
+
+        tankDrive.drive(-0.5, 0);
+        sleep(200);
+        tankDrive.drive(0,0);
+
         RelicRecoveryVuMark vuMark = searchForRelic();
-
-        if (vuMark == RelicRecoveryVuMark.CENTER) {
-            telemetry.addData(">", "CENTER");
-        } else if (vuMark == RelicRecoveryVuMark.RIGHT) {
-            telemetry.addData(">", "RIGHT");
-        } else if (vuMark == RelicRecoveryVuMark.LEFT) {
-            telemetry.addData(">", "LEFT");
-        }
 
         telemetry.update();
     }
@@ -92,9 +98,8 @@ public class AutonomousALL extends LinearOpMode {
         glyphLeft = hardwareMap.get(DcMotor.class, "glyphLeft");
         glyphRight = hardwareMap.get(DcMotor.class, "glyphRight");
 
-        liftMotor = hardwareMap.get(DcMotor.class, "liftMotor");
-        bucketServo = hardwareMap.get(CRServo.class, "bucketServo");
-        jewelServo = hardwareMap.get(CRServo.class, "jewelServo");
+        extendLeft = hardwareMap.get(DcMotor.class, "extendLeft");
+        extendRight = hardwareMap.get(DcMotor.class, "extendRight");
 
 
         //Set the direction of each motor
@@ -106,11 +111,12 @@ public class AutonomousALL extends LinearOpMode {
         glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        liftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        extendLeft.setDirection(DcMotorSimple.Direction.FORWARD);
+        extendRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         //Create the two different drive objects
-        mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
+        tankDrive = new TankDrive(leftBack, leftFront, rightBack, rightFront);
     }
 
     /**
@@ -118,21 +124,32 @@ public class AutonomousALL extends LinearOpMode {
      * function. Loop until the Vuforia Tracker can see a vuMark that isn't UNKNOWN, then return
      * that VuMark identifier and update the telemetry with that information.
      *
+     * This method will only search until a maximmum time is hit. After that, it will return the
+     * 'CENTER' vuMark as a default.
+     *
      * @return RelicRecoveryVuMark - The VuMark that has been found and the key associated with it.
      */
     private RelicRecoveryVuMark searchForRelic() {
-        //Get the RC's camera monitor view hardware map id and make a new vuforiaTracker controller with it.
+        //Start tracking the time it is taking to find a relic.
+        ElapsedTime relicRuntime = new ElapsedTime();
+        relicRuntime.reset();
+
+        //Get the RC's camera monitor view hardware map id and make a new vuforiaTracker controller with it. Initialize Tracking as well.
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaTracker vuforiaTracker = new VuforiaTracker(cameraMonitorViewId);
-
         vuforiaTracker.initTracking();
 
+        //Start the tracking function.
         RelicRecoveryVuMark vuMark = vuforiaTracker.track();
 
-        //Initialize the tracking function and then loop until it finds the VuMark.
+        //Initialize the tracking function and then loop until it finds the VuMark or it hits the maximum time allotted (SEARCHING_DELAY)
         while (vuMark == RelicRecoveryVuMark.UNKNOWN) {
-            telemetry.addData("VuMark", "not visible");
-            vuMark = vuforiaTracker.track();
+            if (relicRuntime.milliseconds() < SEARCHING_DELAY) {
+                telemetry.addData("VuMark", "not visible");
+                vuMark = vuforiaTracker.track();
+            } else {
+                vuMark = RelicRecoveryVuMark.CENTER;
+            }
         }
 
         //Update the telemetry with that found VuMark and return it.

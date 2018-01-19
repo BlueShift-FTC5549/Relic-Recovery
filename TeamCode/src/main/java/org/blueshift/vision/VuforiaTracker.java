@@ -1,5 +1,9 @@
 package org.blueshift.vision;
 
+import android.hardware.camera2.CameraDevice;
+
+import com.vuforia.CameraField;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
@@ -24,7 +28,6 @@ public class VuforiaTracker {
     private VuforiaTrackable relicTemplate;
 
     String vuforiaLicenseKey = "AQfdha3/////AAAAGZL0n1bAsE6PhPRk2ZsrU28GbeRb+R9mOTvsv5dv8xLA+Fi/2ZqLOjcq93npWWM6jcqlyPmp76pka6/mCQEqGXEWZ2hHSaTOB8/XSgSao69oTendDtVCQjMY0ewFVhgXlg63pNtHIbq1OTchsAiuyfPIaTWs3Mii/JTqZEpNdlCSS1mshiYXH2fxUwmC/U5onbwMr3VNejuJS60rYacIzSkeYIRbMeeYNhxfJej4nNxrVPkCKcgkw10CHeKlnNLD9LuzSB6u/5dl1mSXsDh4P8gj02JjVYtWmEqvVRWC744RK97jA3KEemN9ALm6owsXtrCVN1CWnkOdlPJWFGlGZILEx7rxb9/st5hqUweC8iLs";
-
 
     /**
      * This constructor initializes all of the Vuforia necessities. It activities the program with
