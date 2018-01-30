@@ -89,47 +89,6 @@ public class MecanumDrive {
     }
 
     /**
-     * Taking into account the current position, use the drive() function until the current location
-     * matches the desired location.
-     *
-     * @param destinationLocation - The point to drive to on the field
-     * @param dSpeed           - The speed at which to do so
-     */
-    public void driveToPosition(FieldPoint destinationLocation, double dSpeed) {
-        double dAngle = currentLocation.angleToPoint(destinationLocation);
-        double distance = currentLocation.distanceToPoint(destinationLocation);
-
-        //TODO: Figure out rotation directions
-        while (heading != dAngle) {
-            if (heading < dAngle) {
-                drive(0, 0, -0.1);
-            } else if (heading > dAngle) {
-                drive(0, 0, 0.1);
-            }
-
-        }
-
-        useEncoders(true);
-        for (int i = 0; i < motors.length; i++) {
-            motors[i].setPower(ENCODER_DRIVE_SPEED);
-            driveWithEncoders(distance);
-        }
-    }
-
-    /**
-     * Drive a certain distance (in feet), using the encoders to track the distance.
-     *
-     * @param distance      - The distance to drive.
-     */
-    public void driveWithEncoders(double distance) {
-        //dX, dY are in feet - convert to inches too
-        int[] encoderTargets = {    (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH),
-                                    (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH),
-                                    (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH),
-                                    (int)(INCHES_PER_FEET * distance * COUNTS_PER_INCH) };
-    }
-
-    /**
      * This drives the robot with the three given parameters, accounting for the differing way that
      * the mecanum wheels are driven compared to conventional wheels.
      *
@@ -158,7 +117,7 @@ public class MecanumDrive {
         if (encoderState) {
             for (int i = 0; i < motors.length; i++) {
                 motors[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                motors[i].setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                motors[i].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             }
         } else {
             for (int i = 0; i < motors.length; i++) {
@@ -166,6 +125,10 @@ public class MecanumDrive {
                 motors[i].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             }
         }
+    }
+
+    public double avgEncoders() {
+        return (motors[2].getCurrentPosition() + motors[3].getCurrentPosition())/2;
     }
 
     /**

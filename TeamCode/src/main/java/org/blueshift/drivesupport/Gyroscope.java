@@ -83,6 +83,10 @@ public class Gyroscope {
         return heading;
     }
 
+    public Boolean headingEquals(double target, double tolerance) {
+        return (target - tolerance < getHeading()) && (getHeading() < target + tolerance);
+    }
+
     public Orientation getOrientation() {
         updateOrientation();
         return orientation;

@@ -4,15 +4,10 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
-import org.blueshift.drivesupport.FieldPoint;
 import org.blueshift.drivesupport.MecanumDrive;
 import org.blueshift.drivesupport.TankDrive;
-
-import java.util.FormatFlagsConversionMismatchException;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode". An OpMode is a 'program'
@@ -43,9 +38,10 @@ public class MecanumTeleOP extends OpMode {
     private final double CONTROLLER_TOLERANCE = 0.10;
 
     private double SPEED_MULTIPLIER = 1.0;
+    private double MECANUM_ROUND_ANGLE = Math.PI/36; //5 Degrees
 
     private final double OUTTAKE_POWER = 1.0;
-    private final double INTAKE_POWER = 0.9;
+    private final double CONVEYOR_OUTTAKE_POWER = 0.7;
 
     private MecanumDrive mecanumDrive;
     private TankDrive tankDrive;
@@ -68,9 +64,9 @@ public class MecanumTeleOP extends OpMode {
 
         //Set the direction of each motor
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         rightBack.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
 
         glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -109,7 +105,9 @@ public class MecanumTeleOP extends OpMode {
      * stick is pushed.
      */
     @Override public void loop() {
-        double dAngle, dSpeed, dRotation;
+        double dAngle = 0;
+        double dSpeed = 0;
+        double dRotation = 0;
 
         /* ** ** ** ** ** ** ** ** **/
         /*     Drive Train Code     */
@@ -151,23 +149,15 @@ public class MecanumTeleOP extends OpMode {
                 dAngle += 2 * Math.PI;
             }
 
+            /*
+            //Round the mecanum angle to the nearest n degrees
+            dAngle = MECANUM_ROUND_ANGLE * Math.round(dAngle/MECANUM_ROUND_ANGLE);
+            */
+
             //When using the Mecanum drive, set the rotation to the x value of the left stick.
             dRotation = gamepad1.left_stick_x;
 
-            //While the right stick button is pressed, increase the driver precision by scaling down power and rotation multipliers.
-            if (gamepad1.right_stick_button) {
-                dSpeed /= 10;
-                dRotation /= 10;
-            }
-
             mecanumDrive.drive(dAngle, dSpeed * SPEED_MULTIPLIER, dRotation);
-
-            //Make the angle a multiple of pi for displaying purposes, and make speed a percentage.
-            double dAngleDisplay = dAngle / Math.PI;
-            double dSpeedPercent = dSpeed * 100;
-
-            telemetry.addData("Motors", "Angle (%.2f)pi, Speed (%.2f) Percent", dAngleDisplay, dSpeedPercent);
-            telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
         } else if (gamepad1.left_stick_x != 0 || gamepad1.left_stick_y != 0) {
             //Use the tank drive if Mecanum is not being used
             tankDrive.drive(-gamepad1.left_stick_y * SPEED_MULTIPLIER, gamepad1.left_stick_x);
@@ -176,10 +166,54 @@ public class MecanumTeleOP extends OpMode {
             tankDrive.stop();
         }
 
+        telemetry.addData("Motors", "Angle (%.2f)pi ((%.2f) degrees), Speed (%.2f) Percent", dAngle / Math.PI, dAngle / Math.PI * 180, dSpeed * 100);
+        telemetry.addData("Rotation", "Rotating at (%.2f)", dRotation);
 
 
         /* ** ** ** ** ** ** ** ** **/
-        /*      Auxiliary Code      */
+        /*      Auxiliary Code G2   */
+        /* ** ** ** ** ** ** ** ** **/
+        //Front intake controls
+        if (gamepad2.left_stick_y != 0) {
+            glyphLeft.setPower(-gamepad2.left_stick_y);
+        } else {
+            glyphLeft.setPower(0);
+        }
+
+        if (gamepad2.right_stick_y != 0) {
+            glyphRight.setPower(-gamepad2.right_stick_y);
+        } else {
+            glyphRight.setPower(0);
+        }
+
+        //Conveyor Controls
+        if (gamepad2.right_trigger != 0) {
+            conveyorRight.setPower(gamepad2.right_trigger);
+        } else {
+            conveyorRight.setPower(0);
+        }
+
+        if (gamepad2.left_trigger != 0) {
+            conveyorLeft.setPower(gamepad2.left_trigger);
+        } else {
+            conveyorLeft.setPower(0);
+        }
+
+        if (gamepad2.right_bumper) {
+            conveyorRight.setPower(CONVEYOR_OUTTAKE_POWER);
+        } else {
+            conveyorRight.setPower(0);
+        }
+
+        if (gamepad2.left_bumper) {
+            conveyorLeft.setPower(CONVEYOR_OUTTAKE_POWER);
+        } else {
+            conveyorLeft.setPower(0);
+        }
+
+
+        /* ** ** ** ** ** ** ** ** **/
+        /*      Auxiliary Code G1   */
         /* ** ** ** ** ** ** ** ** **/
 
         //Front intake controls
@@ -189,7 +223,7 @@ public class MecanumTeleOP extends OpMode {
         } else if (gamepad1.left_bumper) { //OUT
             glyphRight.setPower(-OUTTAKE_POWER);
             glyphLeft.setPower(-OUTTAKE_POWER);
-        } else {
+        } else if (gamepad2.left_stick_y == 0 && gamepad2.right_stick_y == 0){
             glyphRight.setPower(0.0);
             glyphLeft.setPower(0.0);
         }
@@ -199,9 +233,9 @@ public class MecanumTeleOP extends OpMode {
             conveyorLeft.setPower(gamepad1.right_trigger);
             conveyorRight.setPower(gamepad1.right_trigger);
         } else if (gamepad1.right_bumper) {
-            conveyorLeft.setPower(OUTTAKE_POWER);
-            conveyorRight.setPower(OUTTAKE_POWER);
-        } else {
+            conveyorLeft.setPower(-OUTTAKE_POWER);
+            conveyorRight.setPower(-OUTTAKE_POWER);
+        } else if (gamepad2.left_trigger == 0 && gamepad2.left_trigger == 0) {
             conveyorLeft.setPower(0);
             conveyorRight.setPower(0);
         }
@@ -221,6 +255,7 @@ public class MecanumTeleOP extends OpMode {
 
         //Generate telemetry with the run time.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
+        telemetry.update();
     }
 
     @Override public void stop() {

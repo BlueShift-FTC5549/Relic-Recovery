@@ -60,6 +60,46 @@ public class TankDrive {
     }
 
     /**
+     *
+     *
+     * @param dSpeed
+     * @param encoderTarget
+     */
+    public void driveWithEncoders(double dSpeed, double encoderTarget) {
+        useEncoders(true);
+
+        while (motors[1].getCurrentPosition() != encoderTarget) {
+            drive(dSpeed, 0);
+        }
+
+        useEncoders(false);
+    }
+
+    /**
+     * Turn on the encoders to the RUN_TO_POSITION mode (encoderState = true) or disable the
+     * encoders (encoderState = false).
+     *
+     * @param encoderState - Whether the encoders should be turned on or not.
+     */
+    public void useEncoders(boolean encoderState) {
+        if (encoderState) {
+            for (int i = 0; i < motors.length; i++) {
+                motors[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motors[i].setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+        } else {
+            for (int i = 0; i < motors.length; i++) {
+                motors[i].setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                motors[i].setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+        }
+    }
+
+    public double avgEncoders() {
+        return (motors[2].getCurrentPosition() + motors[3].getCurrentPosition())/2;
+    }
+
+    /**
      * This function will stop the robot by setting all of the motor's powers to zero.
      */
     public void stop() {
