@@ -5,14 +5,18 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 /**
- *
+ * A class for easily driving and controlling a robot using four mecanum wheels on four distinct
+ * motors. This is intended for coding convenience with a TeleOP program, making the code more
+ * readable and easier to follow. It is different frm the regular MecanumDrive functionality because
+ * this class removes the angular strafing features, etc of the Mecanum drive and makes it a sort of
+ * tank drive in practice. This is far more precise when using an autonomous program.
  *
  * @author Gabriel Wong
  * @version 1.0
  */
 
 public class TankDrive {
-    private DcMotor[] motors = {null, null, null, null};
+    private DcMotor[] motors = new DcMotor[4];
     private double[] motorPowers = {0.0, 0.0, 0.0, 0.0};
 
     /**
@@ -43,7 +47,8 @@ public class TankDrive {
     }
 
     /**
-     *
+     * Drive normally as a tank drive robot. The robot can go forwards, backwards, and rotate in
+     * place using this function.
      *
      * @param dSpeed     - [-1, 1], The desired speed for the robot to travel at.
      * @param dRotation  - [-1, 1], The desired speed of rotation for the robot.
@@ -60,17 +65,19 @@ public class TankDrive {
     }
 
     /**
+     * An extension of the drive(...) method that uses encoders and drives certain distances.
      *
-     *
-     * @param dSpeed
-     * @param encoderTarget
+     * @param dSpeed        - [-1, 1], The desired speed for the robot to travel at.
+     * @param encoderTarget - The values the encoders should be equal to before stopping the robot.
      */
     public void driveWithEncoders(double dSpeed, double encoderTarget) {
         useEncoders(true);
 
-        while (motors[1].getCurrentPosition() != encoderTarget) {
+        while (!(getEncoders() >= encoderTarget)) {
             drive(dSpeed, 0);
         }
+
+        drive(0,0);
 
         useEncoders(false);
     }
@@ -95,8 +102,11 @@ public class TankDrive {
         }
     }
 
-    public double avgEncoders() {
-        return (motors[2].getCurrentPosition() + motors[3].getCurrentPosition())/2;
+    /**
+     * @return the average encoder values of the two front motors
+     */
+    public double getEncoders() {
+        return (Math.abs(motors[1].getCurrentPosition()) - Math.abs(motors[3].getCurrentPosition()))/2;
     }
 
     /**

@@ -45,7 +45,6 @@ MERGED from [:Hardware-release:] /Users/wongg19/.android/build-cache/d6485a6e3d5
 MERGED from [:FtcCommon-release:] /Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/AndroidManifest.xml:8:5-10:41
 MERGED from [:Analytics-release:] /Users/wongg19/.android/build-cache/8f589da5fa2a3f087628292666efbbbc1098860d/output/AndroidManifest.xml:5:5-7:41
 MERGED from [:WirelessP2p-release:] /Users/wongg19/.android/build-cache/25d56e1ed712b0fae090e4a425785286da23dc13/output/AndroidManifest.xml:5:5-7:41
-MERGED from [Relic-Recovery:openCVLibrary331:unspecified] /Users/wongg19/Documents/GitHub/Relic-Recovery/openCVLibrary331/build/intermediates/bundles/default/AndroidManifest.xml:7:5-9:41
 	android:targetSdkVersion
 		INJECTED from /Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/src/main/AndroidManifest.xml
 		INJECTED from /Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/src/main/AndroidManifest.xml

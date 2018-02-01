@@ -12,6 +12,9 @@ import org.blueshift.drivesupport.MecanumDrive;
 import org.blueshift.drivesupport.TankDrive;
 
 /**
+ * An almost identical copy of the regular Mecanum TeleOP class, but many more debugging responses
+ * are included to the driver. These debugging responses include the gyroscope heading and encoder
+ * information.
  *
  * @author Gabriel Wong
  * @version 1.0
@@ -22,6 +25,7 @@ public class Debug_MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
     private DcMotor glyphLeft, glyphRight, conveyorLeft, conveyorRight;
+    private Gyroscope gyroscope;
 
     private final double CONTROLLER_TOLERANCE = 0.10;
 
@@ -58,17 +62,20 @@ public class Debug_MecanumTeleOP extends OpMode {
 
         glyphLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         glyphRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
         conveyorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         conveyorRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        //Gyroscope
+        gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+        gyroscope.init();
 
         //Create the two different drive objects
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
         tankDrive    = new TankDrive(leftBack, leftFront, rightBack, rightFront);
-        mecanumDrive.useEncoders(true);
+        tankDrive.useEncoders(true);
 
         // Tell the driver that initialization is complete.
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Initialized in " + runtime.seconds() + " seconds");
     }
 
     @Override public void init_loop() {
@@ -82,13 +89,13 @@ public class Debug_MecanumTeleOP extends OpMode {
     /**
      * The loop function is run continuously from when the driver presses 'play' to when he presses
      * 'stop' or aborts the program. If the user is moving the right stick of gamepad 1, then the
-     * mecanum drive will be controlled, and the left stick's x component is used for rotation. If
+     * mecanum drive will be controlled, where the left stick's x component is used for rotation. If
      * the user is moving the left stick of gamepad 1, then the tank drive will be controlled with
      * a single stick configuration. If both are pressed, mecanum will be the default drive.
      *
-     * The two glyph intake controls are controlled with the bumpers of gamepad 1, and the lift
-     * motor is controlled with the triggers. The button to move the servo down is 'a', and the
-     * button to move it up is 'b'.
+     * The glyph intake controls are controlled with the gamepad 1 triggers, and the outtake
+     * controls are used with the gamepad 1 bumpers. This includes both the ground intake and the
+     * conveyor belt system.
      *
      * The Mecanum angle is the angle that the stick is pushed at, and the speed is how hard the
      * stick is pushed.
@@ -241,6 +248,9 @@ public class Debug_MecanumTeleOP extends OpMode {
                 SPEED_MULTIPLIER = 0.5;
             }
         }
+
+        telemetry.addData("Gyroscope Heading: ", gyroscope.getHeading());
+        telemetry.addData("Encoders of Motors[1],[3]: ", tankDrive.getEncoders());
 
         //Generate telemetry with the run time.
         telemetry.addData("Status", "Run Time: " + runtime.toString());

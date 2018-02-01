@@ -14,19 +14,22 @@ import org.blueshift.drivesupport.TankDrive;
  * that runs in either the autonomous or the teleop period of an FTC match. The names of OpModes
  * appear on the menu of the FTC Driver Station. When an selection is made from the menu, the
  * corresponding OpMode class is instantiated on the Robot Controller and executed. This OpMode is
- * for a 4 wheeled mecanum drive.
+ * for a 4-wheeled mecanum-based drive.
  *
- * The Driver-Controller TeleOP period controls the movement of the robot with the left stick and
- * the two bumpers of gamepad 1. The left stick controllers both direction and speed (direction is
- * the angle formed by the stick, and speed is the distance it is pushed from the center).
+ * If the user is moving the right stick of gamepad 1, then the
+ * mecanum drive will be controlled, where the left stick's x component is used for rotation. If
+ * the user is moving the left stick of gamepad 1, then the tank drive will be controlled with
+ * a single stick configuration. If both are pressed, mecanum will be the default drive.
  *
- * The autonomous period uses the FieldPoint object to record its location and travels to different areas
- * on the field with this coordinate system. It uses the camera to find the locations of cubes
- * (Cyphers) and travels to their locations; the robot grabs the cubes and transports it to the
- * cypher box location.
+ * The glyph intake controls are controlled with the gamepad 1 triggers, and the outtake
+ * controls are used with the gamepad 1 bumpers. This includes both the ground intake and the
+ * conveyor belt system.
+ *
+ * The Mecanum angle is the angle that the stick is pushed at, and the speed is how hard the
+ * stick is pushed.
  *
  * @author Gabriel Wong
- * @version 1.4
+ * @version 2.0
  */
 
 @TeleOp(name="Mecanum Drive", group="Main OPMode")
@@ -93,13 +96,13 @@ public class MecanumTeleOP extends OpMode {
     /**
      * The loop function is run continuously from when the driver presses 'play' to when he presses
      * 'stop' or aborts the program. If the user is moving the right stick of gamepad 1, then the
-     * mecanum drive will be controlled, and the left stick's x component is used for rotation. If
+     * mecanum drive will be controlled, where the left stick's x component is used for rotation. If
      * the user is moving the left stick of gamepad 1, then the tank drive will be controlled with
      * a single stick configuration. If both are pressed, mecanum will be the default drive.
      *
-     * The two glyph intake controls are controlled with the bumpers of gamepad 1, and the lift
-     * motor is controlled with the triggers. The button to move the servo down is 'a', and the
-     * button to move it up is 'b'.
+     * The glyph intake controls are controlled with the gamepad 1 triggers, and the outtake
+     * controls are used with the gamepad 1 bumpers. This includes both the ground intake and the
+     * conveyor belt system.
      *
      * The Mecanum angle is the angle that the stick is pushed at, and the speed is how hard the
      * stick is pushed.

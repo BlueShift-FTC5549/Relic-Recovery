@@ -110,6 +110,5 @@
     <orderEntry type="library" exported="" name="Blocks-release:@aar" level="project" />
     <orderEntry type="library" exported="" name="Inspection-release:@aar" level="project" />
     <orderEntry type="module" module-name="FtcRobotController" exported="" />
-    <orderEntry type="module" module-name="openCVLibrary331" exported="" />
   </component>
 </module>

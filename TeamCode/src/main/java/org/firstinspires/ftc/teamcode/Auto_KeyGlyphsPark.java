@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
+import android.app.Activity;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -13,21 +13,23 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.blueshift.drivesupport.Gyroscope;
-import org.blueshift.drivesupport.FieldPoint;
 import org.blueshift.drivesupport.TankDrive;
+import org.blueshift.vision.JewelSense;
 import org.blueshift.vision.VuforiaTracker;
 import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 
 /**
- *
+ * Autonomous TeleOP for the FTC (FIRST Tech Challenge) 2017-2018 tournament "Relic Recovery". The
+ * goal of this program is to leave the balancing pad after scanning the pictograph and knocking off
+ * the correct jewel before placing a pre-loaded glyph into its proper column inside of the glyph
+ * box.
  *
  * @author Gabriel Wong
- * @version 1.0
+ * @version 0.01 ALPHA
  */
 
 @Autonomous(name="Corner: Key, 2 Glyphs, Park", group ="Corner")
 public class Auto_KeyGlyphsPark extends LinearOpMode {
-    private static final FieldPoint  STARTING_LOCATION = new FieldPoint(1,1); //TODO: Update starting location
     private static final double      SEARCHING_DELAY   = 3500; //ms, Pictograph Identification
 
     private static ElapsedTime runtime = new ElapsedTime();
@@ -42,6 +44,7 @@ public class Auto_KeyGlyphsPark extends LinearOpMode {
     private Servo jewelServo;
     private ColorSensor jewelSensor;
 
+    private JewelSense jewelSense;
     private TankDrive tankDrive;
 
     /**
@@ -55,14 +58,18 @@ public class Auto_KeyGlyphsPark extends LinearOpMode {
         telemetry.addData(">", "Press Play to start");
         telemetry.update();
         waitForStart();
+        telemetry.clear();
 
-        turnLeft();
+        telemetry.addData("Encoder Start: ", tankDrive.getEncoders());
+        tankDrive.driveWithEncoders(0.2, 1000);
+        telemetry.addData("Encoder End: ", tankDrive.getEncoders());
 
+        sleep(10000);
     }
 
     /**
-     *
-     *
+     * Turn the robot ninety(90) degrees (PI/2 Radians) to the left while utilizing the gyroscope of
+     * the Rev-integrated IMU for precise movement.
      */
     private void turnLeft() {
         prevHeading = gyroscope.getHeading();
@@ -80,8 +87,8 @@ public class Auto_KeyGlyphsPark extends LinearOpMode {
     }
 
     /**
-     *
-     *
+     * Turn the robot ninety(90) degrees (PI/2 Radians) to the right while utilizing the gyroscope of
+     * the Rev-integrated IMU for precise movement.
      */
     private void turnRight() {
         prevHeading = gyroscope.getHeading();
@@ -128,12 +135,18 @@ public class Auto_KeyGlyphsPark extends LinearOpMode {
         conveyorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         conveyorRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        tankDrive = new TankDrive(leftBack, leftFront, rightBack, rightFront);
 
+        //Auxiliary Sensors
+        jewelSensor = hardwareMap.get(ColorSensor.class, "jewelSensor");
         gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
         gyroscope.init();
 
-        jewelSensor = hardwareMap.colorSensor.get("jewelSensor");
+        //Declare the object combinations
+        tankDrive = new TankDrive(leftBack, leftFront, rightBack, rightFront);
+        jewelSense = new JewelSense(jewelSensor, ((Activity) hardwareMap.appContext).findViewById(hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName())));
+
+        //Notify the Driver Station
+        telemetry.addData("Initialized: ", runtime.seconds() + " seconds");
     }
 
     /**

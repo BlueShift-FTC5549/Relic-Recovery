@@ -14,10 +14,13 @@ import org.firstinspires.ftc.robotcore.internal.system.AppUtil;
 import java.io.File;
 
 /**
- * A class to store the gyroscope as an object that can be manipulated with custom functions.
+ * A class to store the gyroscope as an object that can be manipulated with custom functions. This
+ * class is a bridge between the native functionality of the BNO055IMU inside of the REV Expansion
+ * hub and the TeleOP program. This class can return the current heading of the bot (radians), and
+ * also the current acceleration felt by the robot.
  *
  * @author Gabriel Wong
- * @version 0.1 ALPHA
+ * @version 1.0
  */
 
 public class Gyroscope {
@@ -75,21 +78,24 @@ public class Gyroscope {
         gravity = gyroscope.getGravity();
     }
 
-    /**
-     * @return The heading as a double value in radians.
-     */
+    /** @return The heading as a double value in radians. */
     public double getHeading() {
         updateHeading();
         return heading;
     }
 
+    /**
+     * For checking the current heading against a previous heading/target with a tolerance. The
+     * tolerance is necessary because readings of the IMU Gyroscope are neither taken often enough
+     * nor are they precise enough to have one set value - there must be a tolerance that changes
+     * with robot rotation speed.
+     *
+     * @param target - The target or previous heading to check the current one against.
+     * @param tolerance - This dictates what values are acceptable for 'equal'.
+     * @return Boolean - If they are equal (within tolerances) or not.
+     */
     public Boolean headingEquals(double target, double tolerance) {
         return (target - tolerance < getHeading()) && (getHeading() < target + tolerance);
-    }
-
-    public Orientation getOrientation() {
-        updateOrientation();
-        return orientation;
     }
 
     public Acceleration getGravity() {
