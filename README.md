@@ -10,11 +10,11 @@ ftc_app: https://github.com/ftctechnh/ftc_app
 
 ## Contact Us
 ### Topics We Can Help With:
--Mecanum Drive Base Programming
--Mecanum Drive Base Engineering/Building
--REV Expansion Hubs (+ Color Sensing)
--Programming Optimization
--CAD Design
+- Mecanum Drive Base Programming
+- Mecanum Drive Base Engineering/Building
+- REV Expansion Hubs (+ Color Sensing)
+- Programming Optimization
+- CAD Design
 
 * Find us on the FTC Discord, tagged: team 5549
 * Email us at robotics@ashevilleschool.org
