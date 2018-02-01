@@ -9,12 +9,20 @@ ftc_app: https://github.com/ftctechnh/ftc_app
 
 
 ## Contact Us
-Find us on the FTC Discord, tagged: team 5549. Email us at robotics@ashevilleschool.org .
+### Topics We Can Help With:
+-Mecanum Drive Base Programming
+-Mecanum Drive Base Engineering/Building
+-REV Expansion Hubs (+ Color Sensing)
+-Programming Optimization
+-CAD Design
+
+* Find us on the FTC Discord, tagged: team 5549
+* Email us at robotics@ashevilleschool.org
 
 
 ## Release Information
-
 ### OpModes
-* Mecanum Drive (TeleOP)  -  (In Progress) Control a four wheeled mecanum robot.
-* ProtoBot Drive  (TeleOP)  -  Control our Prototype Bot (Four wheeled)
-* AllScore (Autonomous)  -  (In Progress) Do everything the robot can during autonomous. Has VuForia code.
+* Mecanum Drive (TeleOP)  -  Control a four wheeled mecanum robot.
+* Mecanum Drive (Debug TeleOP) - Control a four wheeled mecanum robot with information from gyroscopes, encoders.
+* KeyGlyphsPark (Autonomous) - Read the VuForia Vumark, score the jewel, place the glyph in the key.
+* ForwardDrop (Autonomous) - Drive forward (straight) and drop off a glyph. To be used as a last resort in case of failure.
