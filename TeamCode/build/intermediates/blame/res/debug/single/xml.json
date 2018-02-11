@@ -8,6 +8,10 @@
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/rev_scoot.xml"
     },
     {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/xml/autosupport.xml",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/src/main/res/xml/autosupport.xml"
+    },
+    {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/xml/k9usbbot.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/xml/k9usbbot.xml"
     },
@@ -30,6 +34,10 @@
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/xml/app_settings.xml",
         "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/bundles/default/res/xml/app_settings.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/xml/driversupport.xml",
+        "source": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/src/main/res/xml/driversupport.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/TeamCode/build/intermediates/res/merged/debug/xml/squarebot.xml",

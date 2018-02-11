@@ -27,7 +27,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
  */
 @Autonomous(name="Forward and Drop", group ="All")
 public class Auto_ForwardDrop extends LinearOpMode {
-    //Create the object to keep track of Elapsed Time and keep track of the current location.
+    //Create the object to keep trackPictograph of Elapsed Time and keep trackPictograph of the current location.
     private static       ElapsedTime runtime = new ElapsedTime();
 
     //Declare the motors

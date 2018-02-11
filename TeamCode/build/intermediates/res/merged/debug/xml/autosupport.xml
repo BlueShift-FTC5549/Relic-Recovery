@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="gyroscope_to_use">1</integer>
+    <integer name="vumark_searching_delay">3500</integer>
+
+    <integer name="t_corner_to_first_column">224</integer>
+    <integer name="t_corner_to_second_column">760</integer>
+    <integer name="t_corner_to_third_column">1260</integer>
+
+    <integer name="t_off_platform">2240</integer>
+
+    <string name="servo_down_position">0.7</string>
+    <string name="servo_up_position">0.0</string>
+    <string name="overshoot_constant">0.22</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="controller_tolerance">0.05</string>
+    <string name="outtake_power">1.0</string>
+    <string name="conveyor_outtake_power">0.7</string>
+
+    <bool name="square_sticks">true</bool>
+    <bool name="square_triggers">true</bool>
+</resources>

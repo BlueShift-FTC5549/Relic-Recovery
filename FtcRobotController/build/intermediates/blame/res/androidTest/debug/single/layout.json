@@ -16,12 +16,12 @@
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/pwm_device.xml"
     },
     {
-        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/androidTest/debug/layout/activity_ftc_lynx_address_update.xml",
-        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_ftc_lynx_address_update.xml"
-    },
-    {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/androidTest/debug/layout/matrix_devices.xml",
         "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/matrix_devices.xml"
+    },
+    {
+        "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/androidTest/debug/layout/activity_ftc_lynx_address_update.xml",
+        "source": "/Users/wongg19/.android/build-cache/8fcdfa43a7854079b314890705fa9273f6f4dff1/output/res/layout/activity_ftc_lynx_address_update.xml"
     },
     {
         "merged": "/Users/wongg19/Documents/GitHub/Relic-Recovery/FtcRobotController/build/intermediates/res/merged/androidTest/debug/layout/activity_load.xml",

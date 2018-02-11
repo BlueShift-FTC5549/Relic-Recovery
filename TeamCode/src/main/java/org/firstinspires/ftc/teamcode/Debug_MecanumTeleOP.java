@@ -1,15 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.app.Activity;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.blueshift.drivesupport.Gyroscope;
 import org.blueshift.drivesupport.MecanumDrive;
 import org.blueshift.drivesupport.TankDrive;
+import org.blueshift.vision.JewelSense_ColorSensor;
 
 /**
  * An almost identical copy of the regular Mecanum TeleOP class, but many more debugging responses
@@ -20,17 +25,17 @@ import org.blueshift.drivesupport.TankDrive;
  * @version 1.0
  */
 
-@TeleOp(name="Mecanum DEBUG", group="Debug")
+@TeleOp(name="DEBUG Mecanum TeleOP", group="DEBUG")
 public class Debug_MecanumTeleOP extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftBack, leftFront, rightBack, rightFront;
     private DcMotor glyphLeft, glyphRight, conveyorLeft, conveyorRight;
     private Gyroscope gyroscope;
+    private Servo jewelServoR, jewelServoL;
 
     private final double CONTROLLER_TOLERANCE = 0.10;
 
     private double SPEED_MULTIPLIER = 1.0;
-    private double MECANUM_ROUND_ANGLE = Math.PI/36; //5 Degrees
 
     private final double OUTTAKE_POWER = 1.0;
     private final double CONVEYOR_OUTTAKE_POWER = 0.7;
@@ -54,6 +59,10 @@ public class Debug_MecanumTeleOP extends OpMode {
         conveyorLeft = hardwareMap.get(DcMotor.class, "conveyorLeft");
         conveyorRight = hardwareMap.get(DcMotor.class, "conveyorRight");
 
+        jewelServoR = hardwareMap.get(Servo.class, "jewelServoR");
+        jewelServoL = hardwareMap.get(Servo.class, "jewelServoL");
+
+
         //Set the direction of each motor
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -65,14 +74,14 @@ public class Debug_MecanumTeleOP extends OpMode {
         conveyorLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         conveyorRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
+
         //Gyroscope
-        gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu") );
+        gyroscope = new Gyroscope( hardwareMap.get(BNO055IMU.class, "imu1") );
         gyroscope.init();
 
         //Create the two different drive objects
         mecanumDrive = new MecanumDrive(leftBack, leftFront, rightBack, rightFront);
         tankDrive    = new TankDrive(leftBack, leftFront, rightBack, rightFront);
-        tankDrive.useEncoders(true);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized in " + runtime.seconds() + " seconds");
@@ -132,12 +141,6 @@ public class Debug_MecanumTeleOP extends OpMode {
                 }
 
                 dSpeed = Math.abs(gamepad1.right_stick_x);
-            }
-
-            if (gamepad1.a) {
-
-            } else if (gamepad1.b) {
-
             }
 
             //Make all angles positive.
@@ -249,8 +252,15 @@ public class Debug_MecanumTeleOP extends OpMode {
             }
         }
 
+        if (gamepad1.dpad_left) {
+            jewelServoL.setPosition(1.0);
+            jewelServoR.setPosition(0);
+        } else if (gamepad1.dpad_right) {
+            jewelServoL.setPosition(0.4);
+            jewelServoR.setPosition(0.6);
+        }
+
         telemetry.addData("Gyroscope Heading: ", gyroscope.getHeading());
-        telemetry.addData("Encoders of Motors[1],[3]: ", tankDrive.getEncoders());
 
         //Generate telemetry with the run time.
         telemetry.addData("Status", "Run Time: " + runtime.toString());
